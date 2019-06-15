@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="images/Unicesar/logo_unicesar_Favicon.png">
+        <title>Libreria UNICESAR</title>
+        <!-- Bootstrap Core CSS -->
+        <link href="assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/node_modules/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="css/yt-video-background.min.css">
+        <!-- page css -->
+        <link href="css/pages/login-register-lock.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="css/style.css" rel="stylesheet">
+
+        <!-- You can change the theme colors from here -->
+        <link href="css/colors/default.css" id="theme" rel="stylesheet">
+        <style>
+            video{ 
+
+                min-width: 100%;
+                min-height: 100%;
+                width: auto;
+                height: auto;
+
+                position: fixed;    
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%); 
+
+                z-index: -100;
+
+                background-size: cover;
+
+            }
+        </style>
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    </head>
+
+    <body class="card-no-border">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader">
+            <div class="loader">
+                <div class="loader__figure"></div>
+                <p class="loader__label">Libreria UNICESAr</p>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <video id="mivideo" preload="auto" autoplay="autoplay" loop="loop" src="assets/Videos/video_4.mp4"></video>
+        <section id="wrapper">
+            <div class="login-register">
+                <div class="login-box card">
+                    <div class="card-body" style="border: 1px solid black">
+                        <form class="form-horizontal form-material" id="loginform" action="index.html">
+                            <div class="row justify-content-center">
+                                <img src="images/Unicesar/logo_unicesar_Completo.png" height="115" width="300" alt="Logo Unicesar">
+                            </div>
+                            <br>
+                            <form>
+                                <div class="form-group">
+                                    <label style="color: #30A048;font-weight: bold">Usuario</label>
+                                    <input type="text" id="txtuser" class="form-control" placeholder="Usuario">
+                                </div>
+                                <div class="form-group">
+                                    <label style="color: #30A048;font-weight: bold">Contraseña</label>
+                                    <input type="password" id="txtpass" class="form-control" placeholder="Contraseña">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Recuerdame
+                                    </label>
+                                    <label class="pull-right">
+                                        <a href="#">Olvidaste la contraseña?</a>
+                                    </label>
+
+                                </div>
+                                <button id="btnIngresar" type="button" style="background-color: #30A048;" class="btn btn-primary btn-flat m-b-30 m-t-30"><strong>Ingresar</strong></button>
+                            </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- End Wrapper -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+        <script src="assets/node_modules/jquery/jquery.min.js"></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="assets/node_modules/bootstrap/js/popper.min.js"></script>
+        <script src="assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
+        <!--Custom JavaScript -->
+        <script type="text/javascript"></script>
+        <script src = "assets/node_modules/sweetalert/sweetalert.min.js" ></script>
+        <script>
+        $(function () {
+        $(".preloader").fadeOut();
+        });
+        $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+        });
+        // ============================================================== 
+        // Login and Recover Password 
+        // ============================================================== 
+        $('#to-recover').on("click", function () {
+        $("#loginform").slideUp();
+        $("#recoverform").fadeIn();
+        });
+    </script>
+    <script src="js/LoginControl.js"></script>
+</body>
+
+</html>

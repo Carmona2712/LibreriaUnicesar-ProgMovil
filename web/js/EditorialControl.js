@@ -28,7 +28,11 @@ $(document).ready(function(){
             nombre:nombre,
             accion:'Editar'
         },function(data){
-            
+            if(data==="Exito"){
+                
+            }else{
+                
+            }
         });
     });
     

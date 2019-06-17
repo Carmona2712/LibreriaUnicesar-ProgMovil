@@ -21,12 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "SrvGestionEditorial", urlPatterns = {"/SrvGestionEditorial"})
 public class SrvGestionEditorial extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
@@ -35,9 +35,9 @@ public class SrvGestionEditorial extends HttpServlet {
         Editorial e;
         EditorialJpaController ce = new EditorialJpaController();
         String accion = request.getParameter("accion");
-        String idEditorial = request.getParameter("idEditorial");
-        
+
         if (accion.equals("getEditorial")) {
+            String idEditorial = request.getParameter("idEditorial");
             e = ce.findEditorial(Integer.parseInt(idEditorial));
             if (e != null) {
                 pw.write(e.getNombre());
@@ -45,7 +45,19 @@ public class SrvGestionEditorial extends HttpServlet {
                 pw.write("ERROR");
             }
         }
-        
+
+        if (accion.equals("Registrar")) {
+            e = new Editorial();
+            e.setNombre(request.getParameter("nombreEditorial"));
+            try{
+                ce.create(e);
+                pw.write("Exito");
+            }catch(Exception ex){
+                pw.write("Error");
+                System.err.println("Error al registrar Editorial : "+ex.getMessage());
+            }
+        }
+
     }
-    
+
 }

@@ -1,28 +1,22 @@
 <%-- 
-    Document   : Registrar Autor
-    Created on : 14/06/2019, 02:15:15 AM
+    Document   : Editar Editorial
+    Created on : 16/06/2019, 09:45:09 PM
     Author     : Ricardo Carmona
 --%>
 
-<%@page import="java.util.Calendar"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="Controladores.LibroJpaController"%>
-<%@page import="Entidades.Libro"%>
-<%@page import="Entidades.Autor"%>
-<%@page import="Controladores.AutorJpaController"%>
+
 <%@page import="Entidades.Editorial"%>
 <%@page import="Controladores.EditorialJpaController"%>
 <%@page import="Entidades.Administrador"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <%
-
     HttpSession misession = request.getSession();
     Administrador a;
+    Editorial e = null;
+    EditorialJpaController ce = new EditorialJpaController();
+    String editorialID = request.getParameter("id");
+    e = ce.findEditorial(Integer.parseInt(editorialID));
     a = (Administrador) misession.getAttribute("user"); 
-    if (a != null) {
+    if (a != null && e != null) {
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -167,9 +161,9 @@
                                         <li><a href="#"><i class="ti-user"></i> Mi perfil</a></li>
                                         <li><a href="#"><i class="fa fa-exchange"></i> Cambiar de Usuario</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="ti-settings"></i> Cambiar ContraseÃ±a</a></li>
+                                        <li><a href="#"><i class="ti-settings"></i> Cambiar Contraseña</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesiÃ³n</a></li>
+                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -190,7 +184,7 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
 
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">GestiÃ³n Libros</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Gestión Libros</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="index.html">Registrar Libro</a></li>
                                     <li><a href="index2.html">Listado de Libros</a></li>
@@ -215,12 +209,12 @@
                             </li>
                             <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Administrador</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="table-basic.html">Cambiar ContraseÃ±a</a></li>
+                                    <li><a href="table-basic.html">Cambiar Contraseña</a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">SesiÃ³n</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">Sesión</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="widget-data.html">Cerrar SesiÃ³n</a></li>                      
+                                    <li><a href="widget-data.html">Cerrar Sesión</a></li>                      
                                 </ul>
                             </li>
                         </ul>
@@ -254,25 +248,24 @@
                         <div class="col-lg-10">
                             <div class="card-body">
                                 <div class="card-header" style="background-color: #30A048;">
-                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Registro de Autor</h4>
+                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Moficiar Editorial</h4>
                                 </div>
                                 <form action="#">
                                     <div class="form-body">
                                         <div class="row p-t-20">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nombres Autor</label>
-                                                    <input type="text" id="txtNombresAutor"   class="form-control" placeholder="Nombre del Autor">
-                                                    <input type="hidden" id="txtIDautor"/>
+                                                    <label class="control-label">ID</label>
+                                                    <input type="text" id="txtIdEditorial"  value="<% out.print(e.getId()); %>" disabled="" class="form-control" placeholder="Id Editorial">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Nombre de Editorial</label>
+                                                    <input type="text" id="txtNombreEditorial"  value="<% out.print(e.getNombre()); %>"  class="form-control" placeholder="Nombre de la Editorial">
                                                 </div>
                                             </div>
                                             <!--/span-->
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Apellidos Autor</label>
-                                                    <input type="text" id="txtApellidosAutor"  class="form-control" placeholder="Apellidos Autor">
-                                                </div>
-                                            </div>
                                             <!--/span-->
                                         </div>
                                         <!--/row-->
@@ -280,15 +273,15 @@
                                         <!--/Row-->
                                        
                                         <!--/span-->
-                                    </div>
-                                    <button type="button" id="btn_Registrar_Autor" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:1%"><i class="fa fa-save"></i> Registrar Autor</button>
+                                    </div>                                  
+                                    <button type="button" id="btn_Editar_Editorial" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:1%"><i class="fa fa-pencil-square-o"></i> Editar Editorial</button>
                                 </form>
                             </div>
                         </div>
 
                    
                                    
-                        <!-- End PAge Content -->
+                        <!-- End Page Content -->
                     </div>
                     <!-- ============================================================== -->
                     <!-- End PAge Content -->
@@ -308,7 +301,7 @@
                     <!-- footer -->
                     <!-- ============================================================== -->
                     <footer class="footer row justify-content-center" style="color: #30A048; font-weight: bold">
-                        Libreria UNICESAR Â© 2019 Todos los derechos reservados.
+                        Libreria UNICESAR © 2019 Todos los derechos reservados.
                     </footer>
                     <!-- ============================================================== -->
                     <!-- End footer -->
@@ -360,7 +353,7 @@
             <!-- Date range Plugin JavaScript -->
             <script src="../assets/node_modules/timepicker/bootstrap-timepicker.min.js"></script>
             <script src="../assets/node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
-            <script src="../js/AutorControl.js"></script>
+            <script src="../js/EditorialControl.js"></script>
             <script>
                 $(function () {
                     $('#btn_subir_Imagen').change(function (e) {
@@ -398,4 +391,6 @@
 <% } %>
 
 <% }%>
+
+
 

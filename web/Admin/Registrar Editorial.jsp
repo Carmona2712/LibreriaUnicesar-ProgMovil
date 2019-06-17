@@ -1,22 +1,10 @@
 <%-- 
-    Document   : Registrar Autor
-    Created on : 14/06/2019, 02:15:15 AM
+    Document   : Registrar Editorial
+    Created on : 15/06/2019, 12:32:05 AM
     Author     : Ricardo Carmona
 --%>
 
-<%@page import="java.util.Calendar"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="Controladores.LibroJpaController"%>
-<%@page import="Entidades.Libro"%>
-<%@page import="Entidades.Autor"%>
-<%@page import="Controladores.AutorJpaController"%>
-<%@page import="Entidades.Editorial"%>
-<%@page import="Controladores.EditorialJpaController"%>
 <%@page import="Entidades.Administrador"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <%
 
     HttpSession misession = request.getSession();
@@ -167,9 +155,9 @@
                                         <li><a href="#"><i class="ti-user"></i> Mi perfil</a></li>
                                         <li><a href="#"><i class="fa fa-exchange"></i> Cambiar de Usuario</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="ti-settings"></i> Cambiar ContraseÃ±a</a></li>
+                                        <li><a href="#"><i class="ti-settings"></i> Cambiar Contraseña</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesiÃ³n</a></li>
+                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -190,7 +178,7 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
 
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">GestiÃ³n Libros</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Gestión Libros</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="index.html">Registrar Libro</a></li>
                                     <li><a href="index2.html">Listado de Libros</a></li>
@@ -215,12 +203,12 @@
                             </li>
                             <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Administrador</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="table-basic.html">Cambiar ContraseÃ±a</a></li>
+                                    <li><a href="table-basic.html">Cambiar Contraseña</a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">SesiÃ³n</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">Sesión</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="widget-data.html">Cerrar SesiÃ³n</a></li>                      
+                                    <li><a href="widget-data.html">Cerrar Sesión</a></li>                      
                                 </ul>
                             </li>
                         </ul>
@@ -254,25 +242,19 @@
                         <div class="col-lg-10">
                             <div class="card-body">
                                 <div class="card-header" style="background-color: #30A048;">
-                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Registro de Autor</h4>
+                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Registro de Editorial</h4>
                                 </div>
                                 <form action="#">
                                     <div class="form-body">
                                         <div class="row p-t-20">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nombres Autor</label>
-                                                    <input type="text" id="txtNombresAutor"   class="form-control" placeholder="Nombre del Autor">
-                                                    <input type="hidden" id="txtIDautor"/>
+                                                    <label class="control-label">Nombre de Editorial</label>
+                                                    <input type="text" id="txtNombreEditorial"   class="form-control" placeholder="Nombre de la Editorial">
+                                                    <input type="hidden" id="txtIdEditorial"/>
                                                 </div>
                                             </div>
                                             <!--/span-->
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Apellidos Autor</label>
-                                                    <input type="text" id="txtApellidosAutor"  class="form-control" placeholder="Apellidos Autor">
-                                                </div>
-                                            </div>
                                             <!--/span-->
                                         </div>
                                         <!--/row-->
@@ -280,8 +262,8 @@
                                         <!--/Row-->
                                        
                                         <!--/span-->
-                                    </div>
-                                    <button type="button" id="btn_Registrar_Autor" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:1%"><i class="fa fa-save"></i> Registrar Autor</button>
+                                    </div>                                  
+                                    <button type="button" id="btn_Registrar_Editorial" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:1%"><i class="fa fa-save"></i> Registrar Editorial</button>
                                 </form>
                             </div>
                         </div>
@@ -308,7 +290,7 @@
                     <!-- footer -->
                     <!-- ============================================================== -->
                     <footer class="footer row justify-content-center" style="color: #30A048; font-weight: bold">
-                        Libreria UNICESAR Â© 2019 Todos los derechos reservados.
+                        Libreria UNICESAR © 2019 Todos los derechos reservados.
                     </footer>
                     <!-- ============================================================== -->
                     <!-- End footer -->
@@ -360,7 +342,7 @@
             <!-- Date range Plugin JavaScript -->
             <script src="../assets/node_modules/timepicker/bootstrap-timepicker.min.js"></script>
             <script src="../assets/node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
-            <script src="../js/AutorControl.js"></script>
+            <script src="../js/EditorialControl.js"></script>
             <script>
                 $(function () {
                     $('#btn_subir_Imagen').change(function (e) {
@@ -398,4 +380,5 @@
 <% } %>
 
 <% }%>
+
 

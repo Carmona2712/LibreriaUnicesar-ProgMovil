@@ -1,27 +1,18 @@
 <%-- 
-    Document   : Registrar Autor
-    Created on : 14/06/2019, 02:15:15 AM
+    Document   : Lista Editoriales
+    Created on : 16/06/2019, 10:03:21 PM
     Author     : Ricardo Carmona
 --%>
 
-<%@page import="java.util.Calendar"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="Controladores.LibroJpaController"%>
-<%@page import="Entidades.Libro"%>
-<%@page import="Entidades.Autor"%>
-<%@page import="Controladores.AutorJpaController"%>
-<%@page import="Entidades.Editorial"%>
 <%@page import="Controladores.EditorialJpaController"%>
+<%@page import="Entidades.Editorial"%>
+<%@page import="Controladores.AutorJpaController"%>
 <%@page import="Entidades.Administrador"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <%
-
     HttpSession misession = request.getSession();
     Administrador a;
-    a = (Administrador) misession.getAttribute("user"); 
+    a = (Administrador) misession.getAttribute("user");
+    EditorialJpaController ce = new EditorialJpaController();
     if (a != null) {
 %>
 <!DOCTYPE html>
@@ -64,7 +55,7 @@
     <![endif]-->
     </head>
 
-    <body class="fix-header card-no-border fix-sidebar" style="font-family: sans-serif">
+    <body class="fix-header card-no-border fix-sidebar" style="font-family: sans-serif;font-size: 18px">
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
         <!-- ============================================================== -->
@@ -167,9 +158,9 @@
                                         <li><a href="#"><i class="ti-user"></i> Mi perfil</a></li>
                                         <li><a href="#"><i class="fa fa-exchange"></i> Cambiar de Usuario</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="ti-settings"></i> Cambiar ContraseÃ±a</a></li>
+                                        <li><a href="#"><i class="ti-settings"></i> Cambiar Contraseña</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesiÃ³n</a></li>
+                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -190,7 +181,7 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
 
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">GestiÃ³n Libros</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Gestión Libros</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="index.html">Registrar Libro</a></li>
                                     <li><a href="index2.html">Listado de Libros</a></li>
@@ -215,12 +206,12 @@
                             </li>
                             <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Administrador</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="table-basic.html">Cambiar ContraseÃ±a</a></li>
+                                    <li><a href="table-basic.html">Cambiar Contraseña</a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">SesiÃ³n</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">Sesión</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="widget-data.html">Cerrar SesiÃ³n</a></li>                      
+                                    <li><a href="widget-data.html">Cerrar Sesión</a></li>                      
                                 </ul>
                             </li>
                         </ul>
@@ -251,43 +242,36 @@
                     <!-- Start Page Content -->
                     <!-- Start Page Content -->
                     <div class="row justify-content-center">
-                        <div class="col-lg-10">
+                        <div class="col-lg-12">
                             <div class="card-body">
-                                <div class="card-header" style="background-color: #30A048;">
-                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Registro de Autor</h4>
+                                <div class="row justify-content-center">
+                                    <h2 class="m-b-0" style="font-weight: bold;color: #30A048">Listado de Editoriales</h2>
+                                </div>    
+                                <div class="col-lg-12">
+                                    <table id="tabla-Editoriales" class="table">
+                                        <thead>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">ID</th>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Nombre</th>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Editar</th>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Eliminar</th>
+                                        </thead>                                  
+                                        <tbody>
+                                            <% for (Editorial ed : ce.findEditorialEntities()) { %>
+                                            <tr>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle"><% out.print(ed.getId()); %></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle"><% out.print(ed.getNombre()); %></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle"><a href="Editar Editorial.jsp?id=<% out.print(ed.getId()); %>"><button class="btnEditarAutor btn btn-warning">Editar</button></a></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle"><a href="Eliminar Editorial.jsp?id=<% out.print(ed.getId()); %>"><button class="btnEliminarAutor btn btn-danger">Eliminar</button></a></td>
+                                            </tr>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <form action="#">
-                                    <div class="form-body">
-                                        <div class="row p-t-20">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Nombres Autor</label>
-                                                    <input type="text" id="txtNombresAutor"   class="form-control" placeholder="Nombre del Autor">
-                                                    <input type="hidden" id="txtIDautor"/>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Apellidos Autor</label>
-                                                    <input type="text" id="txtApellidosAutor"  class="form-control" placeholder="Apellidos Autor">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                        <!--/row-->
-                                        
-                                        <!--/Row-->
-                                       
-                                        <!--/span-->
-                                    </div>
-                                    <button type="button" id="btn_Registrar_Autor" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:1%"><i class="fa fa-save"></i> Registrar Autor</button>
-                                </form>
                             </div>
                         </div>
 
-                   
-                                   
+
+
                         <!-- End PAge Content -->
                     </div>
                     <!-- ============================================================== -->
@@ -308,7 +292,7 @@
                     <!-- footer -->
                     <!-- ============================================================== -->
                     <footer class="footer row justify-content-center" style="color: #30A048; font-weight: bold">
-                        Libreria UNICESAR Â© 2019 Todos los derechos reservados.
+                        Libreria UNICESAR © 2019 Todos los derechos reservados.
                     </footer>
                     <!-- ============================================================== -->
                     <!-- End footer -->
@@ -360,7 +344,11 @@
             <!-- Date range Plugin JavaScript -->
             <script src="../assets/node_modules/timepicker/bootstrap-timepicker.min.js"></script>
             <script src="../assets/node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
-            <script src="../js/AutorControl.js"></script>
+            <script>
+                $("#txtFechaLanzamiento").bootstrapMaterialDatePicker({weekStart: 0, time: false});
+            </script>
+            <script src="../js/ImgControl.js"></script>
+            <script src="../js/BookControl.js"></script>
             <script>
                 $(function () {
                     $('#btn_subir_Imagen').change(function (e) {
@@ -386,6 +374,53 @@
                 });
 
             </script>
+            <!-- This is data table -->
+            <script src="../assets/node_modules/datatables/jquery.dataTables.min.js"></script>
+            <!-- start - This is for export functionality only -->
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+            <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+            <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+            <script src="../assets/node_modules/i18n/Spanish.lang"></script>
+            <!-- end - This is for export functionality only -->
+            <script>
+                $(function () {
+                    $('#tabla-Editoriales').DataTable({
+                        dom: 'Bfrtip',
+                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                        buttons: [
+                            'copy', 'csv', 'excel', 'pdf', 'print'
+                        ], language: {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            },
+                        },
+                    });
+
+                });
+            </script>
     </body>
 
 </html>
@@ -398,4 +433,3 @@
 <% } %>
 
 <% }%>
-

@@ -4,6 +4,7 @@
     Author     : Ricardo Carmona
 --%>
 
+<%@page import="java.util.Calendar"%>
 <%@page import="Entidades.Administrador"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Controladores.LibroJpaController"%>
@@ -270,11 +271,15 @@
                                     <% for (Libro l : cl.findLibroEntities()) { %>
                                     <tr>
                                         <% String img = new String(l.getImagen(), "utf-8"); %>
+                                        <% Calendar cal = Calendar.getInstance();
+                                           cal.setTime(l.getFechapublicacion());
+                                           String fecha = cal.get(Calendar.DAY_OF_MONTH)+" - "+(cal.get(Calendar.MONTH) +1 )+" - "+cal.get(Calendar.YEAR);
+                                        %> 
                                         <td style="text-align: center;color:black;vertical-align: middle;"><img class="img-biblioteca" src="<% out.print(img);%>" height="75" width="90" /></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getCodigo()); %></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getNombre()); %></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkAutor().getNombres() + " " + l.getFkAutor().getApellidos()); %></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(sdf.format(l.getFechapublicacion())); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(fecha); %></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkEditorial().getNombre()); %></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getGenero()); %></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(dcf.format(l.getPrecioVenta())); %></td>

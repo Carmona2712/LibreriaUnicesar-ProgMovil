@@ -31,7 +31,7 @@
     if (a != null && l != null) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(l.getFechapublicacion());
-        String fecha = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DAY_OF_MONTH);
+        String fecha = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DAY_OF_MONTH);
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -352,6 +352,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Row -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Stock</label>
+                                                <input type="number" value="<% out.print(l.getStock()); %>" disabled="" id="txtStock" class="form-control" placeholder="Stock">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Row -->
                                     <div class="row justify-content-center">
                                         <div class="col-md-4 justify-content-center">
                                             <% String img = new String(l.getImagen(), "utf-8"); %>
@@ -362,11 +372,11 @@
                                             <% } %>
                                             <input id="txtimg64" value="<% out.print(img); %>" type="hidden"/>
                                             <div style="margin-top: 3%">
-                                            <input type="file" id="btn_subir_Imagen"  class="form-control-file" accept="image/*" />
+                                                <input type="file" id="btn_subir_Imagen"  class="form-control-file" accept="image/*" />
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <button type="button" id="btn_Editar_Libro" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:4%"><i class="fa fa-pencil-square-o"></i> Modificar Libro</button>
                                 </form>
                             </div>

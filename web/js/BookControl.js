@@ -8,6 +8,7 @@ $(document).ready(function () {
         var fecha = $("#txtFechaLanzamiento").val();
         var precCompra = $("#txtPrecioCompra").val();
         var precVenta = $("#txtPrecioVenta").val();
+        var Stock = $("#txtStock").val();
         var imagen = $("#txtimg64").val();
         var fkEditorial = $("#txtidEditorial").val();
         var fkAutor = $("#txtidAutor").val();
@@ -20,6 +21,7 @@ $(document).ready(function () {
             idAutor: fkAutor,
             precCompra: precCompra,
             precVenta: precVenta,
+            stock:Stock,
             imagen: imagen,
             accion: 'Registrar',
         }, function (data) {
@@ -111,6 +113,7 @@ $(document).ready(function () {
         $("#txt_nombreEditorial").val("");
         $("#txtPrecioCompra").val("");
         $("#txtPrecioVenta").val("");
+        $("#txtStock").val("0");
         $("#txtimg64").val("");
         $("#ImgLibro").prop("src", "../images/Libros/libro_en_Blanco.jpg");
     }
@@ -125,6 +128,7 @@ $(document).ready(function () {
         var fecha = $("#txtFechaLanzamiento").val();
         var precCompra = $("#txtPrecioCompra").val();
         var precVenta = $("#txtPrecioVenta").val();
+        var Stock = $("#txtStock").val();
         var imagen = $("#txtimg64").val();
         var fkEditorial = $("#txtidEditorial").val();
         var fkAutor = $("#txtidAutor").val();
@@ -137,6 +141,7 @@ $(document).ready(function () {
             idAutor: fkAutor,
             precCompra: precCompra,
             precVenta: precVenta,
+            stock:Stock,
             imagen: imagen,
             accion: 'Editar',
         }, function (data) {
@@ -166,6 +171,7 @@ $(document).ready(function () {
         var fecha = $("#txtFechaLanzamiento").val();
         var precCompra = $("#txtPrecioCompra").val();
         var precVenta = $("#txtPrecioVenta").val();
+        var Stock = $("#txtStock").val();
         var imagen = $("#txtimg64").val();
         var fkEditorial = $("#txtidEditorial").val();
         var fkAutor = $("#txtidAutor").val();
@@ -178,6 +184,7 @@ $(document).ready(function () {
             idAutor: fkAutor,
             precCompra: precCompra,
             precVenta: precVenta,
+            stock:Stock,
             imagen: imagen,
             accion: 'Eliminar',
         }, function (data) {

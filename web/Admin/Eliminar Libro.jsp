@@ -31,7 +31,7 @@
     if (a != null && l != null) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(l.getFechapublicacion());
-        String fecha = cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DAY_OF_MONTH);
+        String fecha = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DAY_OF_MONTH);
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -263,7 +263,7 @@
                         <div class="col-lg-12">
                             <div class="card-body">
                                 <div class="card-header" style="background-color: #30A048;">
-                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Registro de Libro</h4>
+                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Eliminar Libro</h4>
                                 </div>
                                 <form action="#">
                                     <div class="form-body">
@@ -352,6 +352,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Row -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Stock</label>
+                                                <input type="number" value="<% out.print(l.getStock()); %>" disabled="" id="txtStock" class="form-control" placeholder="Stock">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Row -->
                                     <div class="row justify-content-center">
                                         <div class="col-md-4 justify-content-center">
                                             <% String img = new String(l.getImagen(), "utf-8"); %>
@@ -362,11 +372,11 @@
                                             <% } %>
                                             <input id="txtimg64" value="<% out.print(img); %>" type="hidden"/>
                                             <div style="margin-top: 3%">
-                                            <input type="file" disabled="" id="btn_subir_Imagen"  class="form-control-file" accept="image/*" />
+                                                <input type="file" disabled="" id="btn_subir_Imagen"  class="form-control-file" accept="image/*" />
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <button type="button" id="btn_Eliminar_Libro" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:4%"><i class="fa fa-recycle"></i> Eliminar Libro</button>
                                 </form>
                             </div>

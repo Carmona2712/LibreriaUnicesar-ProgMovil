@@ -14,8 +14,6 @@ import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,6 +54,7 @@ public class SrvGestionLibros extends HttpServlet {
         }
         l.setPrecioCompra(Float.parseFloat(request.getParameter("precCompra")));
         l.setPrecioVenta(Float.parseFloat(request.getParameter("precVenta")));
+        l.setStock(Integer.parseInt(request.getParameter("Stock")));
         if (request.getParameter("imagen").equals("")) {
             l.setImagen(null);
         } else {

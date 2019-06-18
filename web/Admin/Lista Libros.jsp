@@ -264,6 +264,7 @@
                                 <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Editorial</th>
                                 <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Género</th>
                                 <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Valor</th>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Stock</th>
                                 <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Editar</th>
                                 <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Eliminar</th>
                                 </thead>
@@ -283,6 +284,7 @@
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkEditorial().getNombre()); %></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getGenero()); %></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(dcf.format(l.getPrecioVenta())); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getStock()); %></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><a href="Editar Libro.jsp?id=<% out.print(l.getCodigo()); %>"><button class="btn btn-warning">Editar</button></a></td>
                                         <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><a href="Eliminar Libro.jsp?id=<% out.print(l.getCodigo()); %>"><button class="btn btn-danger">Eliminar</button></a></td>
                                     </tr>

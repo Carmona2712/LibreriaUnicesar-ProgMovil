@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Libro.findByGenero", query = "SELECT l FROM Libro l WHERE l.genero = :genero"),
     @NamedQuery(name = "Libro.findByFechapublicacion", query = "SELECT l FROM Libro l WHERE l.fechapublicacion = :fechapublicacion"),
     @NamedQuery(name = "Libro.findByPrecioCompra", query = "SELECT l FROM Libro l WHERE l.precioCompra = :precioCompra"),
-    @NamedQuery(name = "Libro.findByPrecioVenta", query = "SELECT l FROM Libro l WHERE l.precioVenta = :precioVenta")})
+    @NamedQuery(name = "Libro.findByPrecioVenta", query = "SELECT l FROM Libro l WHERE l.precioVenta = :precioVenta"),
+    @NamedQuery(name = "Libro.findByStock", query = "SELECT l FROM Libro l WHERE l.stock = :stock")})
 public class Libro implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,6 +61,9 @@ public class Libro implements Serializable {
     @Column(name = "precio_venta")
     private float precioVenta;
     @Basic(optional = false)
+    @Column(name = "stock")
+    private int stock;
+    @Basic(optional = false)
     @Lob
     @Column(name = "imagen")
     private byte[] imagen;
@@ -77,13 +81,14 @@ public class Libro implements Serializable {
         this.codigo = codigo;
     }
 
-    public Libro(String codigo, String nombre, String genero, Date fechapublicacion, float precioCompra, float precioVenta, byte[] imagen) {
+    public Libro(String codigo, String nombre, String genero, Date fechapublicacion, float precioCompra, float precioVenta, int stock, byte[] imagen) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.genero = genero;
         this.fechapublicacion = fechapublicacion;
         this.precioCompra = precioCompra;
         this.precioVenta = precioVenta;
+        this.stock = stock;
         this.imagen = imagen;
     }
 
@@ -133,6 +138,14 @@ public class Libro implements Serializable {
 
     public void setPrecioVenta(float precioVenta) {
         this.precioVenta = precioVenta;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public byte[] getImagen() {

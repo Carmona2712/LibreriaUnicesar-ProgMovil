@@ -14,7 +14,7 @@
 
     HttpSession misession = request.getSession();
     Administrador a;
-    a = (Administrador) misession.getAttribute("user"); 
+    a = (Administrador) misession.getAttribute("user");
     if (a != null) {
 %>
 <!DOCTYPE html>
@@ -241,206 +241,216 @@
                     <!-- ============================================================== -->
                     <!-- Start Page Content -->
                     <!-- ============================================================== -->
-                        <!-- Start Page Content -->
-                        <!-- Start Page Content -->
-                        <div class="row justify-content-center">
-                            <div class="col-lg-12">
-                                <div class="card-body">
-                                    <div class="card-header" style="background-color: #30A048;">
-                                        <h4 class="m-b-0 text-white" style="font-weight: bold">Registro de Libro</h4>
-                                    </div>
-                                    <form action="#">
-                                        <div class="form-body">
-                                            <div class="row p-t-20">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">ISBN</label>
-                                                        <input type="text" id="txtISBN" class="form-control" placeholder="ISBN">
-                                                    </div>
+                    <!-- Start Page Content -->
+                    <!-- Start Page Content -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="card-body">
+                                <div class="card-header" style="background-color: #30A048;">
+                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Registro de Libro</h4>
+                                </div>
+                                <form action="#">
+                                    <div class="form-body">
+                                        <div class="row p-t-20">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">ISBN</label>
+                                                    <input type="text" id="txtISBN" class="form-control" placeholder="ISBN">
                                                 </div>
-                                                <!--/span-->
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Nombre del Libro</label>
-                                                        <input type="text" id="txtNombreLibro" class="form-control" placeholder="Nombre del Libro">
-                                                    </div>
-                                                </div>
-                                                <!--/span-->
                                             </div>
-                                            <!--/row-->
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="cboGenero">Género</label> 
-                                                        <select id="cboGenero" class="form-control">
-                                                            <option value="Romance">Romance</option>
-                                                            <option value="Drama">Drama</option>
-                                                            <option value="Terror">Terror</option>
-                                                            <option value="Ficción">Ficción</option>
-                                                            <option value="Historia">Historia</option>
-                                                            <option value="Infantil">Infantil</option>
-                                                            <option value="Fantasía">Fantasía</option>
-                                                            <option value="Novela Negra">Novela Negra</option>
-                                                            <option value="Relato Corto">Relato Corto</option>
-                                                            <option value="Suspenso">Suspenso</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <!--/span-->
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Fecha Lanzamiento</label>
-                                                        <input type="text" id="txtFechaLanzamiento" class="form-control" placeholder="yyyy-mm-dd">
-                                                    </div>
-                                                </div>
-                                                <!--/span-->
-                                            </div>
-                                            <!--/Row-->
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="txt_nombreEditorial">Editorial</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" disabled="5" id="txt_nombreEditorial" class="form-control" placeholder="Nombre Editorial" aria-label="" aria-describedby="basic-addon1">
-                                                        <input class="form-control"  type="hidden" id="txtidEditorial">
-                                                        <div class="input-group-append">
-                                                            <button class="btn" style="background-color: #30A048;color: #ffffff" data-toggle="modal" data-toggle="modal" data-target="#ModalEditorial" type="button">Seleccionar Editorial</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Spam -->
-                                                <div class="col-md-6">
-                                                    <label for="txt_nombreAutor">Autor</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" disabled="5" id="txt_nombreAutor" class="form-control" placeholder="Nombre del Autor" aria-label="" aria-describedby="basic-addon1">
-                                                        <input class="form-control" hidden="" type="text" id="txtidAutor">
-                                                        <div class="input-group-append">
-                                                            <button class="btn" style="background-color: #30A048;color: #ffffff" data-toggle="modal" data-toggle="modal" data-target=".bs-example-modal-lg" type="button">Seleccionar Autor</button>
-                                                        </div>
-                                                    </div>
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Nombre del Libro</label>
+                                                    <input type="text" id="txtNombreLibro" class="form-control" placeholder="Nombre del Libro">
                                                 </div>
                                             </div>
                                             <!--/span-->
                                         </div>
+                                        <!--/row-->
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Precio de Compra</label>
-                                                    <input type="number" id="txtPrecioCompra" class="form-control" placeholder="Precio de Compra">
+                                                    <label for="cboGenero">Género</label> 
+                                                    <select id="cboGenero" class="form-control">
+                                                        <option value="Romance">Romance</option>
+                                                        <option value="Drama">Drama</option>
+                                                        <option value="Terror">Terror</option>
+                                                        <option value="Ficción">Ficción</option>
+                                                        <option value="Historia">Historia</option>
+                                                        <option value="Infantil">Infantil</option>
+                                                        <option value="Fantasía">Fantasía</option>
+                                                        <option value="Novela Negra">Novela Negra</option>
+                                                        <option value="Relato Corto">Relato Corto</option>
+                                                        <option value="Suspenso">Suspenso</option>
+                                                    </select>
                                                 </div>
                                             </div>
+                                            <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Precio de Venta</label>
-                                                    <input type="number" id="txtPrecioVenta" class="form-control" placeholder="Precio de Venta">
+                                                    <label class="control-label">Fecha Lanzamiento</label>
+                                                    <input type="text" id="txtFechaLanzamiento" class="form-control" placeholder="yyyy-mm-dd">
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <!--/Row-->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="txt_nombreEditorial">Editorial</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" disabled="5" id="txt_nombreEditorial" class="form-control" placeholder="Nombre Editorial" aria-label="" aria-describedby="basic-addon1">
+                                                    <input class="form-control"  type="hidden" id="txtidEditorial">
+                                                    <div class="input-group-append">
+                                                        <button class="btn" style="background-color: #30A048;color: #ffffff" data-toggle="modal" data-toggle="modal" data-target="#ModalEditorial" type="button">Seleccionar Editorial</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Spam -->
+                                            <div class="col-md-6">
+                                                <label for="txt_nombreAutor">Autor</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" disabled="5" id="txt_nombreAutor" class="form-control" placeholder="Nombre del Autor" aria-label="" aria-describedby="basic-addon1">
+                                                    <input class="form-control" hidden="" type="text" id="txtidAutor">
+                                                    <div class="input-group-append">
+                                                        <button class="btn" style="background-color: #30A048;color: #ffffff" data-toggle="modal" data-toggle="modal" data-target=".bs-example-modal-lg" type="button">Seleccionar Autor</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-center">
-                                            <div class="col-md-4 justify-content-center">
-                                                <img id="ImgLibro" src="../images/Libros/libro_en_Blanco.jpg" height="220" width="220" alt="Libro Ejemplo">
-                                                <div style="margin-top: 3%">
-                                                    <input type="file" id="btn_subir_Imagen" class="form-control-file" accept="image/*" />
-                                                </div>
+                                        <!--/span-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Precio de Compra</label>
+                                                <input type="number" id="txtPrecioCompra" class="form-control" placeholder="Precio de Compra">
                                             </div>
-
                                         </div>
-                                        <input id="txtimg64" type="hidden"/>
-                                        <button type="button" id="btn_Registrar_Libro" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:4%"><i class="fa fa-save"></i> Registrar Libro</button>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog  modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="myLargeModalLabel">Seleccione el Autor</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row justify-content-center"><h4 style="font-weight: bold;color: #30A048">Lista de Autores</h4></div>
-
-
-                                            <table class="table table-responsive-xl table-bordered table-striped">
-                                                <thead>
-                                                <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Id</th>
-                                                <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Nombres</th>
-                                                <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Apellidos</th>
-                                                <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Seleccionar</th>
-                                                </thead>
-                                                <tbody>
-                                                    <% AutorJpaController ca = new AutorJpaController(); %>
-                                                    <% for (Autor au : ca.findAutorEntities()) { %>
-                                                    <tr>
-                                                        <td style="color: black;text-align: center;vertical-align: middle"><% out.print(au.getId()); %></td>
-                                                        <td style="color: black;text-align: center;vertical-align: middle"><% out.print(au.getNombres().toUpperCase()); %></td>
-                                                        <td style="color: black;text-align: center;vertical-align: middle"><% out.print(au.getApellidos().toUpperCase()); %></td>
-                                                        <td class="justify-content-center" style="text-align: center;vertical-align: middle"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addAutor btn">Seleccionar</button></td>
-                                                    </tr>
-                                                    <% }%>
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cerrar</button>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Precio de Venta</label>
+                                                <input type="number" id="txtPrecioVenta" class="form-control" placeholder="Precio de Venta">
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-                            <div class="modal fade bs-example-modal-lg" id="ModalEditorial" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog  modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="myLargeModalLabel">Seleccione la Editorial</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row justify-content-center"><h4 style="font-weight: bold;color: #30A048">Lista de Editoriales</h4></div>
-
-
-                                            <table class="table table-responsive-xl table-bordered table-striped">
-                                                <thead>
-                                                <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Id</th>
-                                                <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Editorial</th>
-                                                <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Seleccionar</th>
-                                                </thead>
-                                                <tbody>
-                                                    <% EditorialJpaController ce = new EditorialJpaController(); %>
-                                                    <% for (Editorial e : ce.findEditorialEntities()) { %>
-                                                    <tr>
-                                                        <td style="color: black;text-align: center;vertical-align: middle"><% out.print(e.getId()); %></td>
-                                                        <td style="color: black;text-align: center;vertical-align: middle"><% out.print(e.getNombre().toUpperCase()); %></td>
-                                                        <td class="justify-content-center" style="text-align: center;vertical-align: middle"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addEditorial btn">Seleccionar</button></td>
-                                                    </tr>
-                                                    <% }%>
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cerrar</button>
+                                    <!-- Row -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Stock</label>
+                                                <input type="number" value="0" id="txtStock" class="form-control" placeholder="Stock">
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>                    
-                            <!-- End PAge Content -->
+                                    <!-- /Row -->
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-4 justify-content-center">
+                                            <img id="ImgLibro" src="../images/Libros/libro_en_Blanco.jpg" height="220" width="220" alt="Libro Ejemplo">
+                                            <div style="margin-top: 3%">
+                                                <input type="file" id="btn_subir_Imagen" class="form-control-file" accept="image/*" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <input id="txtimg64" type="hidden"/>
+                                    <button type="button" id="btn_Registrar_Libro" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:4%"><i class="fa fa-save"></i> Registrar Libro</button>
+                                </form>
+                            </div>
                         </div>
-                        <!-- ============================================================== -->
-                        <!-- End PAge Content -->
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                        <!-- Right sidebar -->
-                        <!-- ============================================================== -->
-                        <!-- .right-sidebar -->
 
-                        <!-- ============================================================== -->
-                        <!-- End Right sidebar -->
-                        <!-- ============================================================== -->
+                        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog  modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myLargeModalLabel">Seleccione el Autor</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row justify-content-center"><h4 style="font-weight: bold;color: #30A048">Lista de Autores</h4></div>
+
+
+                                        <table id="Tabla-Autores" class="table table-responsive-xl table-bordered table-striped">
+                                            <thead>
+                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Id</th>
+                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Nombres</th>
+                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Apellidos</th>
+                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Seleccionar</th>
+                                            </thead>
+                                            <tbody>
+                                                <% AutorJpaController ca = new AutorJpaController(); %>
+                                                <% for (Autor au : ca.findAutorEntities()) { %>
+                                                <tr>
+                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(au.getId()); %></td>
+                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(au.getNombres().toUpperCase()); %></td>
+                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(au.getApellidos().toUpperCase()); %></td>
+                                                    <td class="justify-content-center" style="text-align: center;vertical-align: middle"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addAutor btn">Seleccionar</button></td>
+                                                </tr>
+                                                <% }%>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <div class="modal fade bs-example-modal-lg" id="ModalEditorial" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog  modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myLargeModalLabel">Seleccione la Editorial</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row justify-content-center"><h4 style="font-weight: bold;color: #30A048">Lista de Editoriales</h4></div>
+
+
+                                        <table id="tabla-Editoriales" class="table table-responsive-xl table-bordered table-striped">
+                                            <thead>
+                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Id</th>
+                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Editorial</th>
+                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Seleccionar</th>
+                                            </thead>
+                                            <tbody>
+                                                <% EditorialJpaController ce = new EditorialJpaController(); %>
+                                                <% for (Editorial e : ce.findEditorialEntities()) { %>
+                                                <tr>
+                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(e.getId()); %></td>
+                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(e.getNombre().toUpperCase()); %></td>
+                                                    <td class="justify-content-center" style="text-align: center;vertical-align: middle"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addEditorial btn">Seleccionar</button></td>
+                                                </tr>
+                                                <% }%>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>                    
+                        <!-- End PAge Content -->
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End PAge Content -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Right sidebar -->
+                    <!-- ============================================================== -->
+                    <!-- .right-sidebar -->
+
+                    <!-- ============================================================== -->
+                    <!-- End Right sidebar -->
+                    <!-- ============================================================== -->
                     <!-- ============================================================== -->
                     <!-- End Container fluid  -->
                     <!-- ============================================================== -->
@@ -529,6 +539,77 @@
                     }
                 });
 
+            </script>
+            <script src="../assets/node_modules/datatables/jquery.dataTables.min.js"></script>
+            <!-- start - This is for export functionality only -->
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+            <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+            <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+            <script src="../assets/node_modules/i18n/Spanish.lang"></script>
+            <!-- end - This is for export functionality only -->
+            <script>
+                $(function () {
+                    $('#tabla-Editoriales').DataTable({
+                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+                        language: {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            },
+                        },
+                    });
+
+                    $('#Tabla-Autores').DataTable({
+                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+                        language: {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            },
+                        },
+                    });
+
+                });
             </script>
     </body>
 

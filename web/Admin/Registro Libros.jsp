@@ -11,7 +11,6 @@
 <%@page import="Controladores.AutorJpaController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-
     HttpSession misession = request.getSession();
     Administrador a;
     a = (Administrador) misession.getAttribute("user");

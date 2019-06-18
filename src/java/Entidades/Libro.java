@@ -197,13 +197,6 @@ public class Libro implements Serializable {
         return "Entidades.Libro[ codigo=" + codigo + " ]";
     }
 
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
-    }
 
     @XmlTransient
     public List<Abastecimiento> getAbastecimientoList() {
@@ -212,6 +205,14 @@ public class Libro implements Serializable {
 
     public void setAbastecimientoList(List<Abastecimiento> abastecimientoList) {
         this.abastecimientoList = abastecimientoList;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
     
 }

@@ -14,8 +14,8 @@
     Administrador a;
     a = (Administrador) misession.getAttribute("user");
     if (a != null) {
-    Calendar cal2 = Calendar.getInstance();
-    String fecha2 = cal2.get(Calendar.YEAR)+" - "+(cal2.get(Calendar.MONTH)+1)+" - "+cal2.get(Calendar.DAY_OF_MONTH);
+        Calendar cal2 = Calendar.getInstance();
+        String fecha2 = cal2.get(Calendar.YEAR) + " - " + (cal2.get(Calendar.MONTH) + 1) + " - " + cal2.get(Calendar.DAY_OF_MONTH);
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -255,6 +255,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">ISBN</label>
+                                                    <input type="hidden" id="idAdmin" value="<% out.print(a.getUsuario()); %>" />
                                                     <input type="text" id="txtISBN" class="form-control" disabled="" placeholder="ISBN">
                                                 </div>
                                             </div>
@@ -386,13 +387,13 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row justify-content-center"><h4 style="font-weight: bold;color: #30A048">Lista de Editoriales</h4></div>
-                                        <table  id="tablaLibros"class="table table-responsive-xl">
+                                        <table  id="tablaLibros"class="table  table-responsive-xl table-responsive-sm">
                                             <thead>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Imagen</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">ISBN</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Nombre</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Autor</th>
-                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Fecha Publicación</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px;display: none">Fecha Publicación</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Género</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Editorial</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Precio Compra</th>
@@ -406,13 +407,13 @@
                                                     <% String img = new String(l.getImagen(), "utf-8"); %>
                                                     <% Calendar cal = Calendar.getInstance();
                                                         cal.setTime(l.getFechapublicacion());
-                                                       String fecha = cal.get(Calendar.DAY_OF_MONTH) + " - " + (cal.get(Calendar.MONTH) + 1) + " - " + cal.get(Calendar.YEAR);
+                                                        String fecha = cal.get(Calendar.DAY_OF_MONTH) + " - " + (cal.get(Calendar.MONTH) + 1) + " - " + cal.get(Calendar.YEAR);
                                                     %> 
                                                     <td style="text-align: center;color:black;vertical-align: middle;"><img class="img-biblioteca" src="<% out.print(img);%>" height="75" width="90" /></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getCodigo()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getNombre()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkAutor().getNombres() + " " + l.getFkAutor().getApellidos()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(fecha); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;display: none"><% out.print(fecha); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getGenero()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkEditorial().getNombre()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getPrecioCompra()); %></td>
@@ -545,7 +546,7 @@
             <!-- end - This is for export functionality only -->
             <script>
                 $(function () {
-                    $('#tabla-Editoriales').DataTable({
+                    var table = $('#tablaLibros').DataTable({
                         "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
                         language: {
                             "sProcessing": "Procesando...",
@@ -571,42 +572,14 @@
                                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                             },
                         },
-                    });
 
-                    $('#Tabla-Autores').DataTable({
-                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
-                        language: {
-                            "sProcessing": "Procesando...",
-                            "sLengthMenu": "Mostrar _MENU_ registros",
-                            "sZeroRecords": "No se encontraron resultados",
-                            "sEmptyTable": "Ningún dato disponible en esta tabla",
-                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                            "sInfoPostFix": "",
-                            "sSearch": "Buscar:",
-                            "sUrl": "",
-                            "sInfoThousands": ",",
-                            "sLoadingRecords": "Cargando...",
-                            "oPaginate": {
-                                "sFirst": "Primero",
-                                "sLast": "Último",
-                                "sNext": "Siguiente",
-                                "sPrevious": "Anterior"
-                            },
-                            "oAria": {
-                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                            },
-                        },
                     });
-
                 });
             </script>
     </body>
 
 </html>
-<% } else { %>
+<% } else{ %>
 
 <% if (a == null) { %>
 <script>

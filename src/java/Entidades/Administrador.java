@@ -6,14 +6,18 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,6 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Administrador.findByPass", query = "SELECT a FROM Administrador a WHERE a.pass = :pass"),
     @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email")})
 public class Administrador implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkAdmin")
+    private List<Abastecimiento> abastecimientoList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -101,6 +108,15 @@ public class Administrador implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Administrador[ usuario=" + usuario + " ]";
+    }
+
+    @XmlTransient
+    public List<Abastecimiento> getAbastecimientoList() {
+        return abastecimientoList;
+    }
+
+    public void setAbastecimientoList(List<Abastecimiento> abastecimientoList) {
+        this.abastecimientoList = abastecimientoList;
     }
     
 }

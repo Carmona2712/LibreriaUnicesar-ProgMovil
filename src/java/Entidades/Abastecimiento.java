@@ -36,6 +36,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Abastecimiento.findByTotal", query = "SELECT a FROM Abastecimiento a WHERE a.total = :total")})
 public class Abastecimiento implements Serializable {
 
+    @JoinColumn(name = "fk_admin", referencedColumnName = "usuario")
+    @ManyToOne(optional = false)
+    private Administrador fkAdmin;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -121,6 +125,14 @@ public class Abastecimiento implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Abastecimiento[ id=" + id + " ]";
+    }
+
+    public Administrador getFkAdmin() {
+        return fkAdmin;
+    }
+
+    public void setFkAdmin(Administrador fkAdmin) {
+        this.fkAdmin = fkAdmin;
     }
     
 }

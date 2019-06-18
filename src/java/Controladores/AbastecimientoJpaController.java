@@ -13,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Entidades.Libro;
+import Entidades.Administrador;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -43,10 +44,19 @@ public class AbastecimientoJpaController implements Serializable {
                 fkLibro = em.getReference(fkLibro.getClass(), fkLibro.getCodigo());
                 abastecimiento.setFkLibro(fkLibro);
             }
+            Administrador fkAdmin = abastecimiento.getFkAdmin();
+            if (fkAdmin != null) {
+                fkAdmin = em.getReference(fkAdmin.getClass(), fkAdmin.getUsuario());
+                abastecimiento.setFkAdmin(fkAdmin);
+            }
             em.persist(abastecimiento);
             if (fkLibro != null) {
                 fkLibro.getAbastecimientoList().add(abastecimiento);
                 fkLibro = em.merge(fkLibro);
+            }
+            if (fkAdmin != null) {
+                fkAdmin.getAbastecimientoList().add(abastecimiento);
+                fkAdmin = em.merge(fkAdmin);
             }
             em.getTransaction().commit();
         } finally {
@@ -64,9 +74,15 @@ public class AbastecimientoJpaController implements Serializable {
             Abastecimiento persistentAbastecimiento = em.find(Abastecimiento.class, abastecimiento.getId());
             Libro fkLibroOld = persistentAbastecimiento.getFkLibro();
             Libro fkLibroNew = abastecimiento.getFkLibro();
+            Administrador fkAdminOld = persistentAbastecimiento.getFkAdmin();
+            Administrador fkAdminNew = abastecimiento.getFkAdmin();
             if (fkLibroNew != null) {
                 fkLibroNew = em.getReference(fkLibroNew.getClass(), fkLibroNew.getCodigo());
                 abastecimiento.setFkLibro(fkLibroNew);
+            }
+            if (fkAdminNew != null) {
+                fkAdminNew = em.getReference(fkAdminNew.getClass(), fkAdminNew.getUsuario());
+                abastecimiento.setFkAdmin(fkAdminNew);
             }
             abastecimiento = em.merge(abastecimiento);
             if (fkLibroOld != null && !fkLibroOld.equals(fkLibroNew)) {
@@ -76,6 +92,14 @@ public class AbastecimientoJpaController implements Serializable {
             if (fkLibroNew != null && !fkLibroNew.equals(fkLibroOld)) {
                 fkLibroNew.getAbastecimientoList().add(abastecimiento);
                 fkLibroNew = em.merge(fkLibroNew);
+            }
+            if (fkAdminOld != null && !fkAdminOld.equals(fkAdminNew)) {
+                fkAdminOld.getAbastecimientoList().remove(abastecimiento);
+                fkAdminOld = em.merge(fkAdminOld);
+            }
+            if (fkAdminNew != null && !fkAdminNew.equals(fkAdminOld)) {
+                fkAdminNew.getAbastecimientoList().add(abastecimiento);
+                fkAdminNew = em.merge(fkAdminNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -110,6 +134,11 @@ public class AbastecimientoJpaController implements Serializable {
             if (fkLibro != null) {
                 fkLibro.getAbastecimientoList().remove(abastecimiento);
                 fkLibro = em.merge(fkLibro);
+            }
+            Administrador fkAdmin = abastecimiento.getFkAdmin();
+            if (fkAdmin != null) {
+                fkAdmin.getAbastecimientoList().remove(abastecimiento);
+                fkAdmin = em.merge(fkAdmin);
             }
             em.remove(abastecimiento);
             em.getTransaction().commit();

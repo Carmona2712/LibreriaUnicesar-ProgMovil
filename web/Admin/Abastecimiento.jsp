@@ -418,7 +418,7 @@
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getPrecioCompra()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getPrecioVenta()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getStock()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><a href="#"><button class="btn addLibro" type="button" style="background-color: #30A048;color: white;font-weight: bold">Seleccionar</button></a></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><button class="btn addLibro"  style="background-color: #30A048;color: white;font-weight: bold">Seleccionar</button></td>
                                                     <% }%>
                                             </tbody>
                                         </table>
@@ -507,8 +507,6 @@
                 $("#txtFechaLanzamiento").bootstrapMaterialDatePicker({weekStart: 0, time: false});
                 $("#txtFechaAbastecimiento").bootstrapMaterialDatePicker({weekStart: 0, time: false});
             </script>
-            <script src="../js/ImgControl.js"></script>
-            <script src="../js/BookControl.js"></script>
             <script src="../js/AbastecimientoControl.js"></script>
             <script>
                 $(function () {

@@ -23,7 +23,7 @@ $(document).ready(function () {
         var precioCompra = libroSeleccionado[7];
         var PrecioVenta = libroSeleccionado[8];
         var stock = libroSeleccionado[9];
-        
+
         if (isbn !== "") {
             ToastAddLibro();
             $("#txtISBN").val(isbn);
@@ -36,6 +36,8 @@ $(document).ready(function () {
             $("#txtPrecioVenta").val(PrecioVenta);
             $("#txtStock").val(stock);
             $("#ImgLibro").prop('src', imagen);
+            $("#txtCantidadAbastecimiento").val("0");
+            $("#txtValorAbastecimiento").val("0");
         }
 
     });
@@ -51,36 +53,52 @@ $(document).ready(function () {
             $("#txtValorAbastecimiento").val(valorpagar);
         }
     });
-    
-    
-    $("#btn_Registrar_Abastecimiento").click(function(){
+
+
+    $("#btn_Registrar_Abastecimiento").click(function () {
         var idLibro = $("#txtISBN").val();
         var idAdmin = $("#idAdmin").val();
         var fecha_transaccion = $("#txtFechaAbastecimiento").val();
         var cantidad = $("#txtCantidadAbastecimiento").val();
         var total = $("#txtValorAbastecimiento").val();
-        
-        $.post('../SrvGestionAbastecimiento',{
-            idLibro : idLibro,
-            idAdmin:idAdmin,
-            fecha_transaccion:fecha_transaccion,
-            cantidad:cantidad,
-            valor_total:total
-        },function(data){
-            if(data === "Exito"){
-                
-            }else{
-                if(data === "Error"){
-                    
-                }else{
-                    
+
+        $.post('../SrvGestionAbastecimiento', {
+            idLibro: idLibro,
+            idAdmin: idAdmin,
+            fecha_transaccion: fecha_transaccion,
+            cantidad: cantidad,
+            valor_total: total,
+            accion: "Registrar"
+        }, function (data) {
+            if (data === "Exito") {
+                LimpiarCampos();
+                swal("Registro de Abastecimiento exitosa", "Se ha registrado la transacción correctamente !!!!", "success");
+            } else {
+                if (data === "Error") {
+                    swal("Registro de Abastecimiento Erronea", "Se ha presentado un error al momento de registrar el abastecimiento !!!!", "error");
+                } else {
+
                 }
             }
         });
     });
-
-
 });
+
+function LimpiarCampos() {
+    $("#txtISBN").val("");
+    $("#txtNombreLibro").val("");
+    $("#txt_nombreAutor").val("");
+    $("#txtFechaLanzamiento").val("");
+    $("#cboGenero").append('<option value="" selected="selected"></option>');
+    $("#txt_nombreEditorial").val("");
+    $("#txtPrecioCompra").val("");
+    $("#txtPrecioVenta").val("");
+    $("#txtStock").val("");
+    $("#ImgLibro").prop('src', '../images/Libros/libro_en_Blanco.jpg');
+    $("#txtCantidadAbastecimiento").val("0");
+    $("#txtValorAbastecimiento").val("0");
+}
+
 
 function ToastAddLibro() {
     $.toast({

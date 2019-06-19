@@ -23,7 +23,7 @@ $(document).ready(function () {
             precVenta: precVenta,
             stock:Stock,
             imagen: imagen,
-            accion: 'Registrar',
+            accion: 'Registrar'
         }, function (data) {
             console.log("Retorno data : " + data);
             if (data === "Error") {

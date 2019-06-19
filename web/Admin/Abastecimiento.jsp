@@ -15,7 +15,11 @@
     a = (Administrador) misession.getAttribute("user");
     if (a != null) {
         Calendar cal2 = Calendar.getInstance();
-        String fecha2 = cal2.get(Calendar.YEAR) + " - " + (cal2.get(Calendar.MONTH) + 1) + " - " + cal2.get(Calendar.DAY_OF_MONTH);
+        String mes = String.valueOf((cal2.get(Calendar.MONTH)+1));
+        if(Integer.parseInt(mes)<10){
+            mes = "0"+mes;
+        }
+        String fecha2 = cal2.get(Calendar.YEAR) + "-" + mes + "-" + cal2.get(Calendar.DAY_OF_MONTH);
 %>
 <!DOCTYPE html>
 <html lang="es">

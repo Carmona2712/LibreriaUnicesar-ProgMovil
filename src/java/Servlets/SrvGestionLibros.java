@@ -54,7 +54,12 @@ public class SrvGestionLibros extends HttpServlet {
         }
         l.setPrecioCompra(Float.parseFloat(request.getParameter("precCompra")));
         l.setPrecioVenta(Float.parseFloat(request.getParameter("precVenta")));
-        l.setStock(Integer.parseInt(request.getParameter("stock")));
+        if(request.getParameter("stock").equals("0")||request.getParameter("stock")==null){
+             l.setStock(0);
+        }else{
+             l.setStock(Integer.parseInt(request.getParameter("stock")));
+        }
+       
         if (request.getParameter("imagen").equals("")) {
             l.setImagen(null);
         } else {

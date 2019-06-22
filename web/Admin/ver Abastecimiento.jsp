@@ -1,24 +1,51 @@
 <%-- 
-    Document   : Registro Libros
-    Created on : 9/06/2019, 09:44:30 PM
+    Document   : verAbastecimiento
+    Created on : 20/06/2019, 08:49:22 PM
     Author     : Ricardo Carmona
 --%>
-
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="Controladores.AbastecimientoJpaController"%>
+<%@page import="Entidades.Abastecimiento"%>
+<%@page import="Controladores.LibroJpaController"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="Entidades.Libro"%>
 <%@page import="Entidades.Administrador"%>
-<%@page import="Entidades.Editorial"%>
-<%@page import="Controladores.EditorialJpaController"%>
-<%@page import="Entidades.Autor"%>
-<%@page import="Controladores.AutorJpaController"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    LibroJpaController cl = new LibroJpaController();
     HttpSession misession = request.getSession();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
     Administrador a;
     a = (Administrador) misession.getAttribute("user");
-    if (a != null) {
+    Abastecimiento aba = null;
+    AbastecimientoJpaController cab = new AbastecimientoJpaController();
+    String idAbastecimiento = request.getParameter("id");
+    aba = cab.findAbastecimiento(Integer.parseInt(idAbastecimiento));
+    if (a != null && aba != null) {
+        // Formateamos la fecha del abastecimiento
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(aba.getFecha());
+        String mes = String.valueOf((cal2.get(Calendar.MONTH) + 1));
+        if (Integer.parseInt(mes) < 10) {
+            mes = "0" + mes;
+        }
+        String fecha2 = cal2.get(Calendar.YEAR) + "-" + mes + "-" + cal2.get(Calendar.DAY_OF_MONTH);
+        
+    // Formateamos la fecha del Libro
+        Calendar cal3 = Calendar.getInstance();
+        cal3.setTime(aba.getFkLibro().getFechapublicacion());
+        String mes3 = String.valueOf((cal3.get(Calendar.MONTH)+1));
+        if (Integer.parseInt(mes3) < 10) {
+            mes3 = "0" + mes3;
+        }
+        String fecha3 = cal3.get(Calendar.YEAR) + "-" + mes3 + "-" + cal3.get(Calendar.DAY_OF_MONTH);
 %>
 <!DOCTYPE html>
 <html lang="es">
-
+    <script>
+        console.log("Mes 3 : "+<% out.print(aba.getFkLibro().getFechapublicacion().toString()); %>);
+    </script>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -159,9 +186,9 @@
                                         <li><a href="#"><i class="ti-user"></i> Mi perfil</a></li>
                                         <li><a href="#"><i class="fa fa-exchange"></i> Cambiar de Usuario</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="ti-settings"></i> Cambiar ContraseÃ±a</a></li>
+                                        <li><a href="#"><i class="ti-settings"></i> Cambiar Contraseña</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesiÃ³n</a></li>
+                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -182,7 +209,7 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
 
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">GestiÃ³n Libros</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Gestión Libros</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="index.html">Registrar Libro</a></li>
                                     <li><a href="index2.html">Listado de Libros</a></li>
@@ -207,12 +234,12 @@
                             </li>
                             <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Administrador</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="table-basic.html">Cambiar ContraseÃ±a</a></li>
+                                    <li><a href="table-basic.html">Cambiar Contraseña</a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">SesiÃ³n</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">Sesión</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="widget-data.html">Cerrar SesiÃ³n</a></li>                      
+                                    <li><a href="widget-data.html">Cerrar Sesión</a></li>                      
                                 </ul>
                             </li>
                         </ul>
@@ -246,7 +273,7 @@
                         <div class="col-lg-12">
                             <div class="card-body">
                                 <div class="card-header" style="background-color: #30A048;">
-                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Registro de Libro</h4>
+                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Ver Abastecimiento</h4>
                                 </div>
                                 <form action="#">
                                     <div class="form-body">
@@ -254,14 +281,15 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">ISBN</label>
-                                                    <input type="text" id="txtISBN" class="form-control" placeholder="ISBN">
+                                                    <input type="hidden" id="idAdmin" value="<% out.print(a.getUsuario()); %>" />
+                                                    <input type="text" id="txtISBN" value="<% out.print(aba.getFkLibro().getCodigo()); %>" class="form-control" disabled="" placeholder="ISBN">
                                                 </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Nombre del Libro</label>
-                                                    <input type="text" id="txtNombreLibro" class="form-control" placeholder="Nombre del Libro">
+                                                    <input type="text" id="txtNombreLibro" value="<% out.print(aba.getFkLibro().getNombre()); %>" class="form-control" disabled="" placeholder="Nombre del Libro">
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -270,18 +298,9 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="cboGenero">GÃ©nero</label> 
-                                                    <select id="cboGenero" class="form-control">
-                                                        <option value="Romance">Romance</option>
-                                                        <option value="Drama">Drama</option>
-                                                        <option value="Terror">Terror</option>
-                                                        <option value="FicciÃ³n">FicciÃ³n</option>
-                                                        <option value="Historia">Historia</option>
-                                                        <option value="Infantil">Infantil</option>
-                                                        <option value="FantasÃ­a">FantasÃ­a</option>
-                                                        <option value="Novela Negra">Novela Negra</option>
-                                                        <option value="Relato Corto">Relato Corto</option>
-                                                        <option value="Suspenso">Suspenso</option>
+                                                    <label for="cboGenero">Género</label> 
+                                                    <select disabled="" id="cboGenero" class="form-control">
+                                                        <option value="<% out.print(aba.getFkLibro().getGenero()); %>"><% out.print(aba.getFkLibro().getGenero()); %></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -289,7 +308,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Fecha Lanzamiento</label>
-                                                    <input type="text" id="txtFechaLanzamiento" class="form-control" placeholder="yyyy-mm-dd">
+                                                    <input disabled="" type="text" value="<% out.print(fecha3); %>" id="txtFechaLanzamiento" class="form-control" placeholder="yyyy-mm-dd">
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -299,22 +318,16 @@
                                             <div class="col-md-6">
                                                 <label for="txt_nombreEditorial">Editorial</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" disabled="5" id="txt_nombreEditorial" class="form-control" placeholder="Nombre Editorial" aria-label="" aria-describedby="basic-addon1">
-                                                    <input class="form-control"  type="hidden" id="txtidEditorial">
-                                                    <div class="input-group-append">
-                                                        <button class="btn" style="background-color: #30A048;color: #ffffff" data-toggle="modal" data-toggle="modal" data-target="#ModalEditorial" type="button">Seleccionar Editorial</button>
-                                                    </div>
+                                                    <input type="text" disabled="5" value="<% out.print(aba.getFkLibro().getFkEditorial().getNombre()); %>" id="txt_nombreEditorial" class="form-control" placeholder="Nombre Editorial" aria-label="" aria-describedby="basic-addon1">
+                                                    <input class="form-control"  type="hidden" id="txtidEditorial">                                                  
                                                 </div>
                                             </div>
                                             <!-- Spam -->
                                             <div class="col-md-6">
                                                 <label for="txt_nombreAutor">Autor</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" disabled="5" id="txt_nombreAutor" class="form-control" placeholder="Nombre del Autor" aria-label="" aria-describedby="basic-addon1">
-                                                    <input class="form-control" hidden="" type="text" id="txtidAutor">
-                                                    <div class="input-group-append">
-                                                        <button class="btn" style="background-color: #30A048;color: #ffffff" data-toggle="modal" data-toggle="modal" data-target=".bs-example-modal-lg" type="button">Seleccionar Autor</button>
-                                                    </div>
+                                                    <input type="text" disabled="5" value="<% out.print(aba.getFkLibro().getFkAutor().getApellidos() + ", " + aba.getFkLibro().getFkAutor().getNombres()); %>" id="txt_nombreAutor" class="form-control" placeholder="Nombre del Autor" aria-label="" aria-describedby="basic-addon1">
+                                                    <input class="form-control" hidden="" type="text" id="txtidAutor">                                                  
                                                 </div>
                                             </div>
                                         </div>
@@ -324,13 +337,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Precio de Compra</label>
-                                                <input type="number" id="txtPrecioCompra" class="form-control" placeholder="Precio de Compra">
+                                                <input disabled="" type="number" value="<% out.print(aba.getFkLibro().getPrecioCompra()); %>" id="txtPrecioCompra" class="form-control" placeholder="Precio de Compra">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Precio de Venta</label>
-                                                <input type="number" id="txtPrecioVenta" class="form-control" placeholder="Precio de Venta">
+                                                <input disabled="" type="number" value="<% out.print(aba.getFkLibro().getPrecioVenta()); %>" id="txtPrecioVenta" class="form-control" placeholder="Precio de Venta">
                                             </div>
                                         </div>
                                     </div>
@@ -338,96 +351,116 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label">Stock</label>
-                                                <input type="number" value="0" id="txtStock" class="form-control" placeholder="Stock">
+                                                <label class="control-label">Stock Actual</label>
+                                                <input disabled="" type="number" value="<% out.print(aba.getFkLibro().getStock()); %>" value="0" id="txtStock" class="form-control" placeholder="Stock Actual">
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /Row -->
+                                    <% if (aba.getFkLibro().getImagen().toString().equals("")) { %>
                                     <div class="row justify-content-center">
                                         <div class="col-md-4 justify-content-center">
                                             <img id="ImgLibro" src="../images/Libros/libro_en_Blanco.jpg" height="220" width="220" alt="Libro Ejemplo">
                                             <div style="margin-top: 3%">
-                                                <input type="file" id="btn_subir_Imagen" class="form-control-file" accept="image/*" />
+                                                <input disabled="" type="file" id="btn_subir_Imagen" class="form-control-file" accept="image/*" />
                                             </div>
                                         </div>
-
                                     </div>
+                                    <% } else { %>
+                                    <% String img = new String(aba.getFkLibro().getImagen(), "utf-8"); %>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-4 justify-content-center">
+                                            <img id="ImgLibro" src="<% out.print(img); %>" height="220" width="220" alt="Libro Ejemplo">
+                                            <div style="margin-top: 3%">
+                                                <input disabled="" type="file" id="btn_subir_Imagen" class="form-control-file" accept="image/*" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
                                     <input id="txtimg64" type="hidden"/>
-                                    <button type="button" id="btn_Registrar_Libro" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:4%"><i class="fa fa-save"></i> Registrar Libro</button>
+                                    <div class="row" style="margin-top: 2%">
+                                        <div class="card col-md-12" style="max-width: 100%">
+                                            <div class="card-header" style="background-color: #30A048;color: white;font-weight: bold">Datos de Abastecimiento</div>
+                                            <div class="card-body" style="border: 1px solid black">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Fecha</label>
+                                                            <input type="text" value="<% out.print(fecha2); %>" disabled=""  id="txtFechaAbastecimiento" class="form-control" placeholder="YYYY-MM-DD">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Cantidad a abastecer</label>
+                                                            <input type="number"  value="<% out.print(aba.getCantidad()); %>" min="0" disabled="" id="txtCantidadAbastecimiento" class="form-control" placeholder="Cantidad a abastecer">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Valor Abastecimiento</label>
+                                                            <input type="number" value="<% out.print(aba.getTotal()); %>" readonly=""  id="txtValorAbastecimiento" class="form-control" value="0" placeholder="Valor Abastecimiento">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">    </label>
+                                                            <button type="button" disabled="" class="btn btn-block" style="background: #30A048;font-weight: bold;color: white;font-family: serif;font-size: 18px;margin-top: 5px" data-toggle="modal" data-toggle="modal" data-target="#ModalSeleccionarLibro"><i class="fa fa-book"> Seleccionar Libro</i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                    <button type="button" id="btn_Registrar_Abastecimiento" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:4%"><i class="fa fa-save"></i> Registrar Abastecimiento</button>
                                 </form>
                             </div>
                         </div>
 
-                        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal fade bs-example-modal-lg" id="ModalSeleccionarLibro" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
                             <div class="modal-dialog  modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="myLargeModalLabel">Seleccione el Autor</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row justify-content-center"><h4 style="font-weight: bold;color: #30A048">Lista de Autores</h4></div>
-
-
-                                        <table id="Tabla-Autores" class="table table-responsive-xl table-bordered table-striped">
-                                            <thead>
-                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Id</th>
-                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Nombres</th>
-                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Apellidos</th>
-                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Seleccionar</th>
-                                            </thead>
-                                            <tbody>
-                                                <% AutorJpaController ca = new AutorJpaController(); %>
-                                                <% for (Autor au : ca.findAutorEntities()) { %>
-                                                <tr>
-                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(au.getId()); %></td>
-                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(au.getNombres().toUpperCase()); %></td>
-                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(au.getApellidos().toUpperCase()); %></td>
-                                                    <td class="justify-content-center" style="text-align: center;vertical-align: middle;border-bottom: 1px solid black"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addAutor btn">Seleccionar</button></td>
-                                                </tr>
-                                                <% }%>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                                <!-- /.modal-content -->
-                            </div>
-                            <!-- /.modal-dialog -->
-                        </div>
-                        <div class="modal fade bs-example-modal-lg" id="ModalEditorial" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                            <div class="modal-dialog  modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="myLargeModalLabel">Seleccione la Editorial</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                                        <h4 class="modal-title" id="myLargeModalLabel">Seleccione el Libro</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row justify-content-center"><h4 style="font-weight: bold;color: #30A048">Lista de Editoriales</h4></div>
-
-
-                                        <table id="tabla-Editoriales" class="table table-responsive-xl table-bordered table-striped">
+                                        <table  id="tablaLibros"class="table  table-responsive-xl table-responsive-sm">
                                             <thead>
-                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Id</th>
-                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Editorial</th>
-                                            <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Seleccionar</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Imagen</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">ISBN</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Nombre</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Autor</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px;display: none">Fecha Publicación</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Género</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Editorial</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Precio Compra</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">PVP</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Stock</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Seleccionar</th>
                                             </thead>
                                             <tbody>
-                                                <% EditorialJpaController ce = new EditorialJpaController(); %>
-                                                <% for (Editorial e : ce.findEditorialEntities()) { %>
+                                                <% for (Libro l : cl.findLibroEntities()) { %>
                                                 <tr>
-                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(e.getId()); %></td>
-                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(e.getNombre().toUpperCase()); %></td>
-                                                    <td class="justify-content-center" style="text-align: center;vertical-align: middle;border-bottom: 1px solid black"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addEditorial btn">Seleccionar</button></td>
-                                                </tr>
-                                                <% }%>
+                                                    <% String img = new String(l.getImagen(), "utf-8"); %>
+                                                    <% Calendar cal = Calendar.getInstance();
+                                                        cal.setTime(l.getFechapublicacion());
+                                                        String fecha = cal.get(Calendar.DAY_OF_MONTH) + " - " + (cal.get(Calendar.MONTH) + 1) + " - " + cal.get(Calendar.YEAR);
+                                                    %> 
+                                                    <td style="text-align: center;color:black;vertical-align: middle;"><img class="img-biblioteca" src="<% out.print(img);%>" height="75" width="90" /></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getCodigo()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getNombre()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkAutor().getNombres() + " " + l.getFkAutor().getApellidos()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;display: none"><% out.print(fecha3); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getGenero()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkEditorial().getNombre()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getPrecioCompra()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getPrecioVenta()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getStock()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><button class="btn addLibro"  style="background-color: #30A048;color: white;font-weight: bold">Seleccionar</button></td>
+                                                    <% }%>
                                             </tbody>
                                         </table>
-
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cerrar</button>
@@ -457,7 +490,7 @@
                     <!-- footer -->
                     <!-- ============================================================== -->
                     <footer class="footer row justify-content-center" style="color: #30A048; font-weight: bold">
-                        Libreria UNICESAR Â© 2019 Todos los derechos reservados.
+                        Libreria UNICESAR © 2019 Todos los derechos reservados.
                     </footer>
                     <!-- ============================================================== -->
                     <!-- End footer -->
@@ -511,9 +544,9 @@
             <script src="../assets/node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
             <script>
                 $("#txtFechaLanzamiento").bootstrapMaterialDatePicker({weekStart: 0, time: false});
+                $("#txtFechaAbastecimiento").bootstrapMaterialDatePicker({weekStart: 0, time: false});
             </script>
-            <script src="../js/ImgControl.js"></script>
-            <script src="../js/BookControl.js"></script>
+            <script src="../js/AbastecimientoControl.js"></script>
             <script>
                 $(function () {
                     $('#btn_subir_Imagen').change(function (e) {
@@ -551,13 +584,13 @@
             <!-- end - This is for export functionality only -->
             <script>
                 $(function () {
-                    $('#tabla-Editoriales').DataTable({
-                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
+                    var table = $('#tablaLibros').DataTable({
+                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
                         language: {
                             "sProcessing": "Procesando...",
                             "sLengthMenu": "Mostrar _MENU_ registros",
                             "sZeroRecords": "No se encontraron resultados",
-                            "sEmptyTable": "NingÃºn dato disponible en esta tabla",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
                             "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
                             "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
@@ -568,7 +601,7 @@
                             "sLoadingRecords": "Cargando...",
                             "oPaginate": {
                                 "sFirst": "Primero",
-                                "sLast": "Ãšltimo",
+                                "sLast": "Último",
                                 "sNext": "Siguiente",
                                 "sPrevious": "Anterior"
                             },
@@ -578,41 +611,12 @@
                             },
                         },
                     });
-
-                    $('#Tabla-Autores').DataTable({
-                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
-                        language: {
-                            "sProcessing": "Procesando...",
-                            "sLengthMenu": "Mostrar _MENU_ registros",
-                            "sZeroRecords": "No se encontraron resultados",
-                            "sEmptyTable": "NingÃºn dato disponible en esta tabla",
-                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                            "sInfoPostFix": "",
-                            "sSearch": "Buscar:",
-                            "sUrl": "",
-                            "sInfoThousands": ",",
-                            "sLoadingRecords": "Cargando...",
-                            "oPaginate": {
-                                "sFirst": "Primero",
-                                "sLast": "Ãšltimo",
-                                "sNext": "Siguiente",
-                                "sPrevious": "Anterior"
-                            },
-                            "oAria": {
-                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                            },
-                        },
-                    });
-
                 });
             </script>
     </body>
 
 </html>
-<% } else{ %>
+<% }else{ %>
 
 <% if (a == null) { %>
 <script>

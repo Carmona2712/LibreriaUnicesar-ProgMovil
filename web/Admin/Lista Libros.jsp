@@ -276,17 +276,17 @@
                                            cal.setTime(l.getFechapublicacion());
                                            String fecha = cal.get(Calendar.DAY_OF_MONTH)+" - "+(cal.get(Calendar.MONTH) +1 )+" - "+cal.get(Calendar.YEAR);
                                         %> 
-                                        <td style="text-align: center;color:black;vertical-align: middle;"><img class="img-biblioteca" src="<% out.print(img);%>" height="75" width="90" /></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getCodigo()); %></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getNombre()); %></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkAutor().getNombres() + " " + l.getFkAutor().getApellidos()); %></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(fecha); %></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkEditorial().getNombre()); %></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getGenero()); %></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(dcf.format(l.getPrecioVenta())); %></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getStock()); %></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><a href="Editar Libro.jsp?id=<% out.print(l.getCodigo()); %>"><button class="btn btn-warning">Editar</button></a></td>
-                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><a href="Eliminar Libro.jsp?id=<% out.print(l.getCodigo()); %>"><button class="btn btn-danger">Eliminar</button></a></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;border-bottom: 1px solid black"><img class="img-biblioteca" src="<% out.print(img);%>" height="75" width="90" /></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getCodigo()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getNombre()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getFkAutor().getNombres() + " " + l.getFkAutor().getApellidos()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(fecha); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getFkEditorial().getNombre()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getGenero()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(dcf.format(l.getPrecioVenta())); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getStock()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><a href="Editar Libro.jsp?id=<% out.print(l.getCodigo()); %>"><button class="btn btn-warning">Editar</button></a></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><a href="Eliminar Libro.jsp?id=<% out.print(l.getCodigo()); %>"><button class="btn btn-danger">Eliminar</button></a></td>
                                     </tr>
                                     <% }%>
                                 </tbody>
@@ -381,40 +381,36 @@
             <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
             <script src="../assets/node_modules/i18n/Spanish.lang"></script>
             <!-- end - This is for export functionality only -->
-            <script>
-                $(function () {
-                    $('#tablaLibros').DataTable({
-                        dom: 'Bfrtip',
-                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                        buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                        ], language: {
-                            "sProcessing": "Procesando...",
-                            "sLengthMenu": "Mostrar _MENU_ registros",
-                            "sZeroRecords": "No se encontraron resultados",
-                            "sEmptyTable": "Ningún dato disponible en esta tabla",
-                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                            "sInfoPostFix": "",
-                            "sSearch": "Buscar:",
-                            "sUrl": "",
-                            "sInfoThousands": ",",
-                            "sLoadingRecords": "Cargando...",
-                            "oPaginate": {
-                                "sFirst": "Primero",
-                                "sLast": "Último",
-                                "sNext": "Siguiente",
-                                "sPrevious": "Anterior"
-                            },
-                            "oAria": {
-                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                            },
-                        },
-                    });
-
-                });
+         <script>
+    $(function () {
+        $('#tablaLibros').DataTable({
+            "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+            },
+        });
+    });
             </script>
     </body>
 

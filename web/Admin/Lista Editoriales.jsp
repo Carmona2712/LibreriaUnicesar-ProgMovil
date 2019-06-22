@@ -248,7 +248,7 @@
                                     <h2 class="m-b-0" style="font-weight: bold;color: #30A048">Listado de Editoriales</h2>
                                 </div>    
                                 <div class="col-lg-12">
-                                    <table id="tabla-Editoriales" class="table">
+                                    <table id="tabla-Editoriales" class="table table-striped">
                                         <thead>
                                         <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">ID</th>
                                         <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Nombre</th>
@@ -258,10 +258,10 @@
                                         <tbody>
                                             <% for (Editorial ed : ce.findEditorialEntities()) { %>
                                             <tr>
-                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle"><% out.print(ed.getId()); %></td>
-                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle"><% out.print(ed.getNombre()); %></td>
-                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle"><a href="Editar Editorial.jsp?id=<% out.print(ed.getId()); %>"><button class="btnEditarAutor btn btn-warning">Editar</button></a></td>
-                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle"><a href="Eliminar Editorial.jsp?id=<% out.print(ed.getId()); %>"><button class="btnEliminarAutor btn btn-danger">Eliminar</button></a></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(ed.getId()); %></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(ed.getNombre()); %></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><a href="Editar Editorial.jsp?id=<% out.print(ed.getId()); %>"><button class="btnEditarAutor btn btn-warning">Editar</button></a></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><a href="Eliminar Editorial.jsp?id=<% out.print(ed.getId()); %>"><button class="btnEliminarAutor btn btn-danger">Eliminar</button></a></td>
                                             </tr>
                                             <% } %>
                                         </tbody>
@@ -388,12 +388,9 @@
             <!-- end - This is for export functionality only -->
             <script>
                 $(function () {
-                    $('#tabla-Editoriales').DataTable({
-                        dom: 'Bfrtip',
-                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                        buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                        ], language: {
+                    var table = $('#tabla-Editoriales').DataTable({
+                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
+                        language: {
                             "sProcessing": "Procesando...",
                             "sLengthMenu": "Mostrar _MENU_ registros",
                             "sZeroRecords": "No se encontraron resultados",
@@ -418,7 +415,6 @@
                             },
                         },
                     });
-
                 });
             </script>
     </body>

@@ -393,7 +393,7 @@
                                         <div class="row justify-content-center"><h4 style="font-weight: bold;color: #30A048">Lista de Autores</h4></div>
 
 
-                                        <table class="table table-responsive-xl table-bordered table-striped">
+                                        <table id="tablaAutor" class="table table-responsive-xl table-bordered table-striped">
                                             <thead>
                                             <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Id</th>
                                             <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Nombres</th>
@@ -404,10 +404,10 @@
                                                 <% AutorJpaController ca = new AutorJpaController(); %>
                                                 <% for (Autor au : ca.findAutorEntities()) { %>
                                                 <tr>
-                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(au.getId()); %></td>
-                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(au.getNombres().toUpperCase()); %></td>
-                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(au.getApellidos().toUpperCase()); %></td>
-                                                    <td class="justify-content-center" style="text-align: center;vertical-align: middle"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addAutor btn">Seleccionar</button></td>
+                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(au.getId()); %></td>
+                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(au.getNombres().toUpperCase()); %></td>
+                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(au.getApellidos().toUpperCase()); %></td>
+                                                    <td class="justify-content-center" style="text-align: center;vertical-align: middle;border-bottom: 1px solid black"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addAutor btn">Seleccionar</button></td>
                                                 </tr>
                                                 <% }%>
                                             </tbody>
@@ -433,7 +433,7 @@
                                         <div class="row justify-content-center"><h4 style="font-weight: bold;color: #30A048">Lista de Editoriales</h4></div>
 
 
-                                        <table class="table table-responsive-xl table-bordered table-striped">
+                                        <table id="TablaEditorial" class="table table-responsive-xl table-bordered table-striped">
                                             <thead>
                                             <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Id</th>
                                             <th style="background-color: #30A048;color: white;font-weight: bold;border: 1px solid white;text-align: center">Editorial</th>
@@ -443,9 +443,9 @@
                                                 <% EditorialJpaController ce = new EditorialJpaController(); %>
                                                 <% for (Editorial e : ce.findEditorialEntities()) { %>
                                                 <tr>
-                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(e.getId()); %></td>
-                                                    <td style="color: black;text-align: center;vertical-align: middle"><% out.print(e.getNombre().toUpperCase()); %></td>
-                                                    <td class="justify-content-center" style="text-align: center;vertical-align: middle"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addEditorial btn">Seleccionar</button></td>
+                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(e.getId()); %></td>
+                                                    <td style="color: black;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(e.getNombre().toUpperCase()); %></td>
+                                                    <td class="justify-content-center" style="text-align: center;vertical-align: middle;border-bottom: 1px solid black"><button style="background-color: #30A048;font-weight: bolder;color: white" class="addEditorial btn">Seleccionar</button></td>
                                                 </tr>
                                                 <% }%>
                                             </tbody>
@@ -537,6 +537,16 @@
             </script>
             <script src="../js/ImgControl.js"></script>
             <script src="../js/BookControl.js"></script>
+            <script src="../assets/node_modules/datatables/jquery.dataTables.min.js"></script>
+            <!-- start - This is for export functionality only -->
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+            <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+            <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+            <!-- end - This is for export functionality only -->
             <script>
                 $(function () {
                     $('#btn_subir_Imagen').change(function (e) {
@@ -561,6 +571,66 @@
                     }
                 });
 
+            </script>
+            <script>
+                $(function () {
+                    $('#tablaAutor').DataTable({
+                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
+                        language: {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            },
+                        },
+                    });
+
+                    $('#TablaEditorial').DataTable({
+                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
+                        language: {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            },
+                        },
+                    });
+
+                });
             </script>
     </body>
 

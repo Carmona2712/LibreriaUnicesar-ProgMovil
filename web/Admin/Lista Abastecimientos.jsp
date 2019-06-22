@@ -1,21 +1,23 @@
 <%-- 
-    Document   : Lista Autores
-    Created on : 14/06/2019, 04:04:59 PM
+    Document   : Lista Abastecimientos
+    Created on : 20/06/2019, 09:05:01 PM
     Author     : Ricardo Carmona
 --%>
 
-
-<%@page import="Entidades.Autor"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="Controladores.AbastecimientoJpaController"%>
+<%@page import="Entidades.Abastecimiento"%>
+<%@page import="Controladores.EditorialJpaController"%>
+<%@page import="Entidades.Editorial"%>
 <%@page import="Controladores.AutorJpaController"%>
 <%@page import="Entidades.Administrador"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%
-
     HttpSession misession = request.getSession();
     Administrador a;
     a = (Administrador) misession.getAttribute("user");
-    AutorJpaController ca = new AutorJpaController();
+    AbastecimientoJpaController cab = new AbastecimientoJpaController();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
     if (a != null) {
 %>
 <!DOCTYPE html>
@@ -161,9 +163,9 @@
                                         <li><a href="#"><i class="ti-user"></i> Mi perfil</a></li>
                                         <li><a href="#"><i class="fa fa-exchange"></i> Cambiar de Usuario</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="ti-settings"></i> Cambiar ContraseÃ±a</a></li>
+                                        <li><a href="#"><i class="ti-settings"></i> Cambiar Contraseña</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesiÃ³n</a></li>
+                                        <li><a href="#"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -184,7 +186,7 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
 
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">GestiÃ³n Libros</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Gestión Libros</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="index.html">Registrar Libro</a></li>
                                     <li><a href="index2.html">Listado de Libros</a></li>
@@ -209,12 +211,12 @@
                             </li>
                             <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Administrador</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="table-basic.html">Cambiar ContraseÃ±a</a></li>
+                                    <li><a href="table-basic.html">Cambiar Contraseña</a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">SesiÃ³n</span></a>
+                            <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">Sesión</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="widget-data.html">Cerrar SesiÃ³n</a></li>                      
+                                    <li><a href="widget-data.html">Cerrar Sesión</a></li>                      
                                 </ul>
                             </li>
                         </ul>
@@ -248,25 +250,39 @@
                         <div class="col-lg-12">
                             <div class="card-body">
                                 <div class="row justify-content-center">
-                                    <h2 class="m-b-0" style="font-weight: bold;color: #30A048">Listado de Autores</h2>
+                                    <h2 class="m-b-0" style="font-weight: bold;color: #30A048">Listado de Abastecimientos</h2>
                                 </div>    
                                 <div class="col-lg-12">
-                                    <table id="tabla-Autores" class="table table-striped">
+                                    <table id="tabla-Abastecimientos" class="table">
                                         <thead>
                                         <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">ID</th>
-                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Nombres</th>
-                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Apellidos</th>
-                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Editar</th>
-                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Eliminar</th>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Imagen</th>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Nombre</th>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Fecha</th>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Cantidad</th>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Valor</th>
+                                        <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: 1px solid white">Ver</th>
                                         </thead>                                  
                                         <tbody>
-                                            <% for (Autor au : ca.findAutorEntities()) { %>
+                                            <% for (Abastecimiento aba : cab.findAbastecimientoEntities()) { %>
                                             <tr>
-                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(au.getId()); %></td>
-                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(au.getNombres()); %></td>
-                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(au.getApellidos()); %></td>
-                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><a href="Editar Autor.jsp?id=<% out.print(au.getId()); %>"><button class="btnEditarAutor btn btn-warning">Editar</button></a></td>
-                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><a href="Eliminar Autor.jsp?id=<% out.print(au.getId()); %>"><button class="btnEliminarAutor btn btn-danger">Eliminar</button></a></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(aba.getId()); %></td>
+                                                <% String img = new String(aba.getFkLibro().getImagen(), "utf-8"); %>            
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><img src="<% out.print(img); %>" height="75" width="90" alt="Imagen del Libro"></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(aba.getFkLibro().getNombre()); %></td>
+                                                 <%
+                                                    Calendar cal3 = Calendar.getInstance();
+                                                    cal3.setTime(aba.getFecha());
+                                                    String mes3 = String.valueOf((cal3.get(Calendar.MONTH) + 1));
+                                                    if (Integer.parseInt(mes3) < 10) {
+                                                        mes3 = "0" + mes3;
+                                                    }
+                                                    String fecha3 = cal3.get(Calendar.YEAR) + "-" + mes3 + "-" + cal3.get(Calendar.DAY_OF_MONTH);
+                                                %>    
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(fecha3); %></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(aba.getCantidad()); %></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><% out.print(aba.getTotal()); %></td>
+                                                <td style="color: black;font-weight: bolder;text-align: center;vertical-align: middle;border-bottom: 1px solid black"><a href="ver Abastecimiento.jsp?id=<% out.print(aba.getId()); %>"><button class="btnVerAbastecimiento btn" style="background-color: #30A048;color: white;font-weight: bold">Ver</button></a></td>
                                             </tr>
                                             <% } %>
                                         </tbody>
@@ -274,9 +290,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                         <!-- End PAge Content -->
                     </div>
                     <!-- ============================================================== -->
@@ -297,7 +310,7 @@
                     <!-- footer -->
                     <!-- ============================================================== -->
                     <footer class="footer row justify-content-center" style="color: #30A048; font-weight: bold">
-                        Libreria UNICESAR Â© 2019 Todos los derechos reservados.
+                        Libreria UNICESAR © 2019 Todos los derechos reservados.
                     </footer>
                     <!-- ============================================================== -->
                     <!-- End footer -->
@@ -392,40 +405,40 @@
             <script src="../assets/node_modules/i18n/Spanish.lang"></script>
             <!-- end - This is for export functionality only -->
             <script>
-         $(function () {
-             var table = $('#tabla-Autores').DataTable({
-                 "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
-                 language: {
-                     "sProcessing": "Procesando...",
-                     "sLengthMenu": "Mostrar _MENU_ registros",
-                     "sZeroRecords": "No se encontraron resultados",
-                     "sEmptyTable": "NingÃºn dato disponible en esta tabla",
-                     "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                     "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                     "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                     "sInfoPostFix": "",
-                     "sSearch": "Buscar:",
-                     "sUrl": "",
-                     "sInfoThousands": ",",
-                     "sLoadingRecords": "Cargando...",
-                     "oPaginate": {
-                         "sFirst": "Primero",
-                         "sLast": "Ãšltimo",
-                         "sNext": "Siguiente",
-                         "sPrevious": "Anterior"
-                     },
-                     "oAria": {
-                         "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                     },
-                 },
-             });
-         });
+    $(function () {
+        $('#tabla-Abastecimientos').DataTable({
+            "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+            },
+        });
+    });
             </script>
     </body>
 
 </html>
-<% } else{ %>
+<% } else{%>
 
 <% if (a == null) { %>
 <script>
@@ -434,3 +447,4 @@
 <% } %>
 
 <% }%>
+

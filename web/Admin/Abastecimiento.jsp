@@ -413,17 +413,17 @@
                                                         cal.setTime(l.getFechapublicacion());
                                                         String fecha = cal.get(Calendar.DAY_OF_MONTH) + " - " + (cal.get(Calendar.MONTH) + 1) + " - " + cal.get(Calendar.YEAR);
                                                     %> 
-                                                    <td style="text-align: center;color:black;vertical-align: middle;"><img class="img-biblioteca" src="<% out.print(img);%>" height="75" width="90" /></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getCodigo()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getNombre()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkAutor().getNombres() + " " + l.getFkAutor().getApellidos()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;border-bottom: 1px solid black"><img class="img-biblioteca" src="<% out.print(img);%>" height="75" width="90" /></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getCodigo()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getNombre()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getFkAutor().getNombres() + " " + l.getFkAutor().getApellidos()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;display: none"><% out.print(fecha); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getGenero()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getFkEditorial().getNombre()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getPrecioCompra()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getPrecioVenta()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><% out.print(l.getStock()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px"><button class="btn addLibro"  style="background-color: #30A048;color: white;font-weight: bold">Seleccionar</button></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getGenero()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getFkEditorial().getNombre()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getPrecioCompra()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getPrecioVenta()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getStock()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><button class="btn addLibro"  style="background-color: #30A048;color: white;font-weight: bold">Seleccionar</button></td>
                                                     <% }%>
                                             </tbody>
                                         </table>

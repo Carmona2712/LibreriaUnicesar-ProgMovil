@@ -57,10 +57,10 @@ public class SrvGestionCliente extends HttpServlet {
                 String retorno = "";
                 for (Cliente c : cc.findClienteEntities()) {
                     retorno += "<tr>";
-                    retorno += "<td style='text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black'>" + c.getId() + "></td>";
-                    retorno += "<td style='text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black'>" + c.getNombres() + "></td>";
-                    retorno += "<td style='text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black'>" + c.getApellidos() + "></td>";
-                    retorno += "<td style='text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black'>" + c.getEmail() + "></td>";
+                    retorno += "<td style='text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black'>" + c.getId() + "</td>";
+                    retorno += "<td style='text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black'>" + c.getNombres() + "</td>";
+                    retorno += "<td style='text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black'>" + c.getApellidos() + "</td>";
+                    retorno += "<td style='text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black'>" + c.getEmail() + "</td>";
                     retorno += "<td style='text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black'><button class='btn addCliente'  style='background-color: #30A048;color: white;font-weight: bold'>Seleccionar</button></td>";
                     retorno += "</tr>";
                 }

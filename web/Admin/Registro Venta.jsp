@@ -384,14 +384,15 @@
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Nombre</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Autor</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px;display: none">Fecha Publicación</th>
-                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Género</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px;display: none">Género</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Editorial</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Precio Compra</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">PVP</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Stock</th>
+                                            <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Cantidad</th>
                                             <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Seleccionar</th>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="cuerpoTablaLibros">
                                                 <% for (Libro l : cl.findLibroEntities()) { %>
                                                 <tr>
                                                     <% String img = new String(l.getImagen(), "utf-8"); %>
@@ -404,12 +405,13 @@
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getNombre()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getFkAutor().getNombres() + " " + l.getFkAutor().getApellidos()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;display: none"><% out.print(fecha); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getGenero()); %></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;;display: none"><% out.print(l.getGenero()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getFkEditorial().getNombre()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getPrecioCompra()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getPrecioVenta()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(l.getStock()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><button class="btn addLibro"  style="background-color: #30A048;color: white;font-weight: bold">Seleccionar</button></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><input type="number" min="0" value="0" class="form-control"></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><button class="btn addLibroVenta"  style="background-color: #30A048;color: white;font-weight: bold">Añadir</button></td>
                                                     <% }%>
                                             </tbody>
                                         </table>
@@ -484,7 +486,7 @@
                                             <div class="col-md-10">
                                                 <div class="form-group">
                                                     <label>Identificación</label>
-                                                    <input type="text" class="form-control" id="txtIdentificacionCliente" placeholder="Identificación">
+                                                    <input type="text" class="form-control" id="txtIdentificacionCliente_Modal" placeholder="Identificación">
                                                 </div>
                                             </div>
                                         </div>
@@ -492,7 +494,7 @@
                                             <div class="col-md-10">
                                                 <div class="form-group">
                                                     <label>Nombres</label>
-                                                    <input type="text" class="form-control" id="txtNombresCliente" placeholder="Nombres">
+                                                    <input type="text" class="form-control" id="txtNombresCliente_Modal" placeholder="Nombres">
                                                 </div>
                                             </div>
                                         </div>
@@ -500,7 +502,7 @@
                                             <div class="col-md-10">
                                                 <div class="form-group">
                                                     <label>Apellidos</label>
-                                                    <input type="text" class="form-control" id="txtApellidosCliente" placeholder="Apellidos">
+                                                    <input type="text" class="form-control" id="txtApellidosCliente_Modal" placeholder="Apellidos">
                                                 </div>
                                             </div>
                                         </div>
@@ -508,7 +510,7 @@
                                             <div class="col-md-10">
                                                 <div class="form-group">
                                                     <label>E-mail</label>
-                                                    <input type="text" class="form-control" id="txtEmailCliente" placeholder="Email">
+                                                    <input type="text" class="form-control" id="txtEmailCliente_Modal" placeholder="Email">
                                                 </div>
                                             </div>
                                         </div>

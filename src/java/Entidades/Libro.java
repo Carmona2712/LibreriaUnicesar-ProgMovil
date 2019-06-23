@@ -48,6 +48,8 @@ public class Libro implements Serializable {
     @Column(name = "imagen")
     private byte[] imagen;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkLibro")
+    private List<DetalleVenta> detalleVentaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkLibro")
     private List<Abastecimiento> abastecimientoList;
 
     private static final long serialVersionUID = 1L;
@@ -213,6 +215,15 @@ public class Libro implements Serializable {
 
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
+    }
+
+    @XmlTransient
+    public List<DetalleVenta> getDetalleVentaList() {
+        return detalleVentaList;
+    }
+
+    public void setDetalleVentaList(List<DetalleVenta> detalleVentaList) {
+        this.detalleVentaList = detalleVentaList;
     }
     
 }

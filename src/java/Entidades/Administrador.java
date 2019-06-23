@@ -34,6 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Administrador implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkAdmin")
+    private List<Venta> ventaList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkAdmin")
     private List<Abastecimiento> abastecimientoList;
 
     private static final long serialVersionUID = 1L;
@@ -117,6 +120,15 @@ public class Administrador implements Serializable {
 
     public void setAbastecimientoList(List<Abastecimiento> abastecimientoList) {
         this.abastecimientoList = abastecimientoList;
+    }
+
+    @XmlTransient
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
     }
     
 }

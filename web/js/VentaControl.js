@@ -47,6 +47,15 @@ $(document).ready(function () {
         }
 
     });
+    
+    
+    
+    $("#btn_Registrar_Venta").click(function(){
+        var fechaVenta = $("#txtFechaVenta").val();
+        var idVenta = $("#txtCodigoFactura").val();
+        var total_venta = $("#txtTotalVenta").val();
+        
+    });
 
 
 

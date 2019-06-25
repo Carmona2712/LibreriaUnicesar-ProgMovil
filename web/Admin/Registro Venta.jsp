@@ -63,6 +63,11 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+        <style>
+            .celdaCuerpoVenta{
+                font-size: 18px;vertical-align: middle;text-align: center;color: black;border-bottom: 1px solid black;
+            }
+        </style>
     </head>
 
     <body class="fix-header card-no-border fix-sidebar" style="font-family: sans-serif">
@@ -355,6 +360,7 @@
                                                 <th style="background-color: #30A048;font-weight: bold;color: white;text-align: center;vertical-align: middle;font-size: 18px;border: 1px solid white">Precio</th>
                                                 <th style="background-color: #30A048;font-weight: bold;color: white;text-align: center;vertical-align: middle;font-size: 18px;border: 1px solid white">Cantidad</th>
                                                 <th style="background-color: #30A048;font-weight: bold;color: white;text-align: center;vertical-align: middle;font-size: 18px;border: 1px solid white">Subtotal</th>
+                                                <th style="background-color: #30A048;font-weight: bold;color: white;text-align: center;vertical-align: middle;font-size: 18px;border: 1px solid white">Eliminar</th>
                                                 </thead>
                                                 <tbody id="CuerpoTabla-Venta">
 
@@ -457,7 +463,7 @@
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(c.getNombres()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(c.getApellidos()); %></td>
                                                     <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(c.getEmail()); %></td>
-                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><button class="btn addCliente"  style="background-color: #30A048;color: white;font-weight: bold">Seleccionar</button></td>
+                                                    <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><button class="btn addCliente activeAccount"  style="background-color: #30A048;color: white;font-weight: bold">Seleccionar</button></td>
                                                 </tr>
                                                 <% }%>
                                             </tbody>
@@ -645,7 +651,7 @@
             <script>
                 $(function () {
                     var table = $('#tablaLibros').DataTable({
-                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+                        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
                         language: {
                             "sProcessing": "Procesando...",
                             "sLengthMenu": "Mostrar _MENU_ registros",
@@ -699,6 +705,9 @@
                             },
                         },
                     });
+                    
+                    
+                    
                 });
             </script>
     </body>

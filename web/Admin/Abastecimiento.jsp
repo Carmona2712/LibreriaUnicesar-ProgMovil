@@ -84,7 +84,7 @@
                     <!-- Logo -->
                     <!-- ============================================================== -->
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="Menu Principal.jsp">
                             <!-- Logo icon --><b>
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                                 <!-- Dark Logo icon -->
@@ -95,7 +95,7 @@
                             <!--End Logo icon -->
                             <!-- Logo text --><span>
                                 <!-- dark Logo text -->
-                                <img src="../images/Unicesar/logo_unicesar_Texto.png" height="24" width="125" alt="homepage" class="dark-logo" /> 
+                                <img src="../images/Unicesar/logo_unicesar_Texto.png" height="28" width="152" alt="homepage" class="dark-logo" /> 
                                 <!-- Light Logo text -->    
                                 <!-- <img src="../assets/images/LIRA/LOGO_LIRA.png" height="150" width="80" alt="homepage" class="light-logo" /> -->
                                 <!-- <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" />--></span> </a> 
@@ -180,7 +180,7 @@
             <!-- ============================================================== -->
             <!-- Left Sidebar - style you can find in sidebar.scss  -->
             <!-- ============================================================== -->
-            <aside class="left-sidebar">
+          <aside class="left-sidebar">
                 <!-- Sidebar scroll-->
                 <div class="scroll-sidebar">
                     <!-- Sidebar navigation-->
@@ -189,25 +189,25 @@
 
                             <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Gestión Libros</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="index.html">Registrar Libro</a></li>
-                                    <li><a href="index2.html">Listado de Libros</a></li>
-                                    <li><a href="index3.html">Registrar Autor</a></li>
-                                    <li><a href="index4.html">Listado de Autores</a></li>
-                                    <li><a href="index4.html">Registrar Editorial</a></li>
-                                    <li><a href="index4.html">Listado de Editoriales</a></li>
+                                    <li><a href="Registro Libros.jsp">Registrar Libro</a></li>
+                                    <li><a href="Lista Libros.jsp">Listado de Libros</a></li>
+                                    <li><a href="Registrar Autor.jsp">Registrar Autor</a></li>
+                                    <li><a href="Lista Autores.jsp">Listado de Autores</a></li>
+                                    <li><a href="Registrar Editorial.jsp">Registrar Editorial</a></li>
+                                    <li><a href="Lista Editoriales.jsp">Listado de Editoriales</a></li>
                                 </ul>
                             </li>
                             <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-cart-plus"></i><span class="hide-menu">Abastecimiento</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="app-calendar.html">Nuevo Abastecimiento</a></li>
-                                    <li><a href="app-chat.html">Historial Abastecimientos</a></li>             
+                                    <li><a href="Abastecimiento.jsp">Nuevo Abastecimiento</a></li>
+                                    <li><a href="Lista Abastecimientos.jsp">Historial Abastecimientos</a></li>             
                                 </ul>
                             </li>
 
                             <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-money"></i><span class="hide-menu">Nueva Venta</span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <li><a href="form-basic.html">Nueva Venta</a></li>
-                                    <li><a href="form-layout.html">Historial de Ventas</a></li>
+                                    <li><a href="Registro Venta.jsp">Nueva Venta</a></li>
+                                    <li><a href="Lista Ventas.jsp">Historial de Ventas</a></li>
                                 </ul>
                             </li>
                             <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Administrador</span></a>

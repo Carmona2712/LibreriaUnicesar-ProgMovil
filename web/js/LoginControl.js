@@ -18,7 +18,7 @@ $(document).ready(function () {
                     swal("Datos incorrectos.", "Ingrese nuevamente las credenciales.", "error");
                 } else {
                     if (data === "Valido") {
-                        window.location.replace("Admin/Registro Libros.jsp");
+                        window.location.replace("Admin/Menu Principal.jsp");
                     }else{
                         swal("Se ha presentado un error.", "Contactar con soporte", "error");
                     }

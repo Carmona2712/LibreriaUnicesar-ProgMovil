@@ -1,27 +1,23 @@
 <%-- 
-    Document   : Registrar Autor
-    Created on : 14/06/2019, 02:15:15 AM
+    Document   : Lista Ventas
+    Created on : 26/06/2019, 02:01:12 AM
     Author     : Ricardo Carmona
 --%>
 
 <%@page import="java.util.Calendar"%>
+<%@page import="Controladores.VentaJpaController"%>
+<%@page import="Entidades.Venta"%>
+<%@page import="Entidades.Administrador"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="Controladores.LibroJpaController"%>
-<%@page import="Entidades.Libro"%>
-<%@page import="Entidades.Autor"%>
-<%@page import="Controladores.AutorJpaController"%>
-<%@page import="Entidades.Editorial"%>
-<%@page import="Controladores.EditorialJpaController"%>
-<%@page import="Entidades.Administrador"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <%
-
+    DecimalFormat dcf = new DecimalFormat("###,###.###");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
     HttpSession misession = request.getSession();
+    VentaJpaController cv = new VentaJpaController();
     Administrador a;
-    a = (Administrador) misession.getAttribute("user"); 
+    a = (Administrador) misession.getAttribute("user");
     if (a != null) {
 %>
 <!DOCTYPE html>
@@ -62,9 +58,14 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+        <style>
+            .th{
+                border: solid 2px white;
+            }
+        </style>
     </head>
 
-    <body class="fix-header card-no-border fix-sidebar" style="font-family: sans-serif">
+    <body class="fix-header card-no-border fix-sidebar" style="font-family: sans-serif;font-size: 18px">
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
         <!-- ============================================================== -->
@@ -86,7 +87,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                      <div class="navbar-header">
+                    <div class="navbar-header">
                         <a class="navbar-brand" href="Menu Principal.jsp">
                             <!-- Logo icon --><b>
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -248,59 +249,56 @@
                     <!-- ============================================================== -->
                     <!-- Start Page Content -->
                     <!-- ============================================================== -->
-                    <!-- Start Page Content -->
-                    <!-- Start Page Content -->
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10">
-                            <div class="card-body">
-                                <div class="card-header" style="background-color: #30A048;">
-                                    <h4 class="m-b-0 text-white" style="font-weight: bold">Registro de Autor</h4>
-                                </div>
-                                <form action="#">
-                                    <div class="form-body">
-                                        <div class="row p-t-20">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Nombres Autor</label>
-                                                    <input type="text" id="txtNombresAutor"   class="form-control" placeholder="Nombre del Autor">
-                                                    <input type="hidden" id="txtIDautor"/>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Apellidos Autor</label>
-                                                    <input type="text" id="txtApellidosAutor"  class="form-control" placeholder="Apellidos Autor">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                        <!--/row-->
-                                        
-                                        <!--/Row-->
-                                       
-                                        <!--/span-->
-                                    </div>
-                                    <button type="button" id="btn_Registrar_Autor" class="btn btn-md btn-block" style="background:#30A048;color: white;font-weight: bolder;margin-top:1%"><i class="fa fa-save"></i> Registrar Autor</button>
-                                </form>
-                            </div>
+                    <div class="container-fluid">  <!-- Comienza espacio de trabajo --> 
+                        <!-- Start Page Content -->
+                        <!-- Start Page Content -->
+                        <h2 class="title row justify-content-center" style="color: #30A048;font-weight: bold">Listado de Ventas</h2>
+                        <div class="">
+                            <table  id="tablaLibros" class="table">
+                                <thead>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">ID Venta</th>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Vendedor</th>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">ID Cliente</th>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Nombres</th>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Fecha Venta</th>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Total Items</th>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Subtotal</th>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Ver</th>
+                                <th style="background-color: #30A048;font-weight: bolder;color: white;text-align: center;border: white solid 1px;font-size:18px">Imprimir</th>
+                                </thead>
+                                <tbody>
+                                    <% for (Venta v : cv.findVentaEntities()) { %>
+                                    <tr>
+                                        <% Calendar cal = Calendar.getInstance();                                        
+                                           cal.setTime(sdf.parse(v.getFechaventa()));
+                                           String fecha = cal.get(Calendar.DAY_OF_MONTH)+" - "+(cal.get(Calendar.MONTH) +1 )+" - "+cal.get(Calendar.YEAR);
+                                        %> 
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(v.getId()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(v.getFkAdmin().getUsuario()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(v.getFkCliente().getId()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(v.getFkCliente().getNombres()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(fecha); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(v.getDetalleVentaList().size()); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><% out.print(dcf.format(v.getTotalventa())); %></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><a href="Ver Venta.jsp?id=<% out.print(v.getId()); %>"><button class="btn btn-primary"><i class="fa fa-eye"></i> ver</button></a></td>
+                                        <td style="text-align: center;color:black;vertical-align: middle;font-size:18px;border-bottom: 1px solid black"><a href="Imprimir_Factura.jsp?id=<% out.print(v.getId()); %>" target="_blank"><button class="btn btn-success"><i class="fa fa-print"></i> Imprimir</button></a></td>
+                                    </tr>
+                                    <% }%>
+                                </tbody>
+                            </table>
                         </div>
-
-                   
-                                   
+                        <!-- ============================================================== -->
                         <!-- End PAge Content -->
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- End PAge Content -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Right sidebar -->
-                    <!-- ============================================================== -->
-                    <!-- .right-sidebar -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Right sidebar -->
+                        <!-- ============================================================== -->
+                        <!-- .right-sidebar -->
 
-                    <!-- ============================================================== -->
-                    <!-- End Right sidebar -->
-                    <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- End Right sidebar -->
+                        <!-- ============================================================== -->
+                    </div>
                     <!-- ============================================================== -->
                     <!-- End Container fluid  -->
                     <!-- ============================================================== -->
@@ -360,31 +358,54 @@
             <!-- Date range Plugin JavaScript -->
             <script src="../assets/node_modules/timepicker/bootstrap-timepicker.min.js"></script>
             <script src="../assets/node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
-            <script src="../js/AutorControl.js"></script>
+            <script src="../assets/node_modules/ElevateZoom/jquery.elevatezoom.js"></script>
+            <script src="../js/ImgControl.js"></script>
+            <script src="../js/BookControl.js.js"></script>
             <script>
-                $(function () {
-                    $('#btn_subir_Imagen').change(function (e) {
-                        addImage(e);
-                    });
-
-                    function addImage(e) {
-                        var file = e.target.files[0],
-                                imageType = /image.*/;
-
-                        if (!file.type.match(imageType))
-                            return;
-
-                        var reader = new FileReader();
-                        reader.onload = fileOnload;
-                        reader.readAsDataURL(file);
-                    }
-
-                    function fileOnload(e) {
-                        var result = e.target.result;
-                        $('#ImgLibro').attr("src", result);
-                    }
-                });
-
+                $(".img-biblioteca").elevateZoom({scrollZoom: true});
+            </script>
+            <!-- This is data table -->
+            <script src="../assets/node_modules/datatables/jquery.dataTables.min.js"></script>
+            <!-- start - This is for export functionality only -->
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+            <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+            <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+            <script src="../assets/node_modules/i18n/Spanish.lang"></script>
+            <!-- end - This is for export functionality only -->
+         <script>
+    $(function () {
+        $('#tablaLibros').DataTable({
+            "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "Todo"]],
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+            },
+        });
+    });
             </script>
     </body>
 
@@ -398,4 +419,3 @@
 <% } %>
 
 <% }%>
-
